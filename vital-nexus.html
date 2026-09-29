@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vital Nexus — the seconds between crisis and help, closed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1A1C; --bg-2:#0B1315; --surface:#152426; --surface-2:#1C2E30;
+    --line: rgba(242,245,241,0.09); --text:#F2F5F1; --text-dim:#9DB2AE; --text-faint:#6C8582;
+    --teal:#5FB3AA; --teal-dim: rgba(95,179,170,0.16);
+    --coral:#E1543D; --coral-dim: rgba(225,84,61,0.16);
+    --amber:#E3AE4E; --amber-dim: rgba(227,174,78,0.16);
+    --violet:#8C8BD8; --violet-dim: rgba(140,139,216,0.16);
+    --radius-s: 10px; --radius-m: 18px; --radius-l: 30px;
+    --shadow: 0 20px 60px rgba(0,0,0,0.35);
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#F3F1EC; --bg-2:#EAE7E0; --surface:#FFFFFF; --surface-2:#F4F2ED;
+      --line: rgba(15,26,28,0.10); --text:#132523; --text-dim:#5B6E6B; --text-faint:#8B9997;
+      --teal:#2E8C82; --teal-dim: rgba(46,140,130,0.12);
+      --coral:#C8442F; --coral-dim: rgba(200,68,47,0.12);
+      --amber:#B37F1F; --amber-dim: rgba(179,127,31,0.12);
+      --violet:#5C5BB0; --violet-dim: rgba(92,91,176,0.12);
+      --shadow: 0 20px 50px rgba(20,30,30,0.15);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#F3F1EC; --bg-2:#EAE7E0; --surface:#FFFFFF; --surface-2:#F4F2ED;
+    --line: rgba(15,26,28,0.10); --text:#132523; --text-dim:#5B6E6B; --text-faint:#8B9997;
+    --teal:#2E8C82; --teal-dim: rgba(46,140,130,0.12);
+    --coral:#C8442F; --coral-dim: rgba(200,68,47,0.12);
+    --amber:#B37F1F; --amber-dim: rgba(179,127,31,0.12);
+    --violet:#5C5BB0; --violet-dim: rgba(92,91,176,0.12);
+    --shadow: 0 20px 50px rgba(20,30,30,0.15);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background: radial-gradient(120% 140% at 20% -10%, var(--bg-2) 0%, var(--bg) 55%); color:var(--text); font-family:'Manrope', sans-serif; min-height:100vh; -webkit-font-smoothing: antialiased; }
+  .wrap{ max-width: 1160px; margin: 0 auto; padding: 56px 24px 90px; }
+  h1,h2,h3, .serif{ font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em; }
+  .logo{ display:inline-flex; align-items:center; justify-content:center; }
+  .logo svg{ width:100%; height:100%; }
+
+  .hero{ display:grid; grid-template-columns: 1.05fr 0.95fr; gap:56px; align-items:center; margin-bottom:64px; }
+  @media (max-width: 880px){ .hero{ grid-template-columns:1fr; gap:36px; } }
+  .brandrow{ display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+  .brandrow .logo{ width:30px; height:30px; }
+  .brandrow span{ font-family:'Fraunces'; font-size:16px; color:var(--text-dim); }
+  .kicker{ display:flex; align-items:center; gap:10px; color:var(--text-dim); font-size:13px; margin-bottom:18px;}
+  .kicker .dot{ width:7px; height:7px; border-radius:50%; background:var(--coral); box-shadow:0 0 0 4px var(--coral-dim);}
+  h1.title{ font-size: clamp(32px, 4.4vw, 52px); line-height:1.06; margin:0 0 20px; }
+  h1.title em{ font-style:normal; color:var(--teal); }
+  .lede{ color:var(--text-dim); font-size:16.5px; line-height:1.65; max-width: 480px; margin:0 0 30px;}
+  .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+  .btn{ font-family:'Manrope'; font-weight:700; font-size:14.5px; border:none; cursor:pointer; padding: 13px 22px; border-radius: 999px; transition: transform .15s ease, box-shadow .15s ease; }
+  .btn:active{ transform: scale(0.97); }
+  .btn-primary{ background:var(--teal); color:#08201D; }
+  .btn-primary:hover{ box-shadow: 0 8px 24px var(--teal-dim); }
+  .btn-ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color: var(--teal); color:var(--teal); }
+  .stat-row{ display:flex; gap:26px; margin-top:36px; flex-wrap:wrap; }
+  .stat b{ font-family:'Fraunces'; font-size:24px; font-weight:500; display:block; }
+  .stat span{ color:var(--text-faint); font-size:12.5px; }
+
+  .phone-stage{ display:flex; justify-content:center; position:relative; }
+  .phone{ width: 328px; height: 690px; border-radius: 46px; background: var(--bg-2); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 12px; position:relative; overflow:hidden; flex-shrink:0; }
+  .phone::before{ content:""; position:absolute; top:12px; left:50%; transform:translateX(-50%); width:90px; height:22px; background:var(--bg); border-radius:0 0 16px 16px; z-index:30; }
+  .screen{ width:100%; height:100%; border-radius:36px; background:var(--surface); position:relative; overflow:hidden; display:flex; flex-direction:column; }
+  .statusbar{ display:flex; justify-content:space-between; padding:16px 22px 4px; font-size:12px; color:var(--text-dim); font-weight:700; }
+  .content{ flex:1; overflow-y:auto; padding: 4px 18px 90px; scrollbar-width:none; position:relative; }
+  .content::-webkit-scrollbar{ display:none; }
+
+  .tabbar{ display:none; justify-content:space-around; align-items:center; padding: 8px 2px 14px; border-top:1px solid var(--line); background:var(--surface); }
+  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--text-faint); background:none; border:none; cursor:pointer; font-family:'Manrope'; font-size:9.5px; font-weight:700; padding:3px 6px; }
+  .tab svg{ width:18px; height:18px; stroke:var(--text-faint); fill:none; stroke-width:1.8; }
+  .tab.active{ color:var(--teal); }
+  .tab.active svg{ stroke:var(--teal); }
+
+  .screen-name{ font-family:'Fraunces'; font-size:19px; margin: 10px 0 3px; }
+  .screen-sub{ color:var(--text-faint); font-size:12px; margin:0 0 14px; }
+
+  .view{ display:none; animation: fade .25s ease; }
+  .view.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  /* Sign in */
+  .signin-screen{ position:absolute; inset:0; background:var(--surface); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:34px 26px; text-align:center; z-index:22; }
+  .signin-screen .logo{ width:56px; height:56px; margin-bottom:18px; }
+  .signin-screen h2{ font-size:22px; margin:0 0 6px; }
+  .signin-screen p{ color:var(--text-faint); font-size:12.5px; margin:0 0 26px; max-width:230px; }
+  .signin-field{ width:100%; text-align:left; margin-bottom:12px; }
+  .signin-field label{ font-size:11px; color:var(--text-dim); font-weight:700; display:block; margin-bottom:6px; }
+  .signin-field input{ width:100%; background:var(--surface-2); border:1px solid var(--line); color:var(--text); border-radius:12px; padding:12px 14px; font-family:'Manrope'; font-size:13.5px; }
+  .signin-field input:focus{ outline:none; border-color:var(--teal); }
+  .signin-btn{ width:100%; background:var(--teal); color:#08201D; border:none; padding:14px; border-radius:14px; font-weight:800; font-size:13.5px; cursor:pointer; margin-top:8px; }
+  .signin-alt{ font-size:11px; color:var(--text-faint); margin-top:16px; }
+  .signin-badges{ display:flex; gap:8px; margin-top:22px; }
+  .signin-badges span{ font-size:9.5px; color:var(--text-faint); border:1px solid var(--line); padding:5px 9px; border-radius:999px; }
+
+  /* Onboarding slides */
+  .onboard-screen{ position:absolute; inset:0; background:var(--surface); z-index:21; display:none; flex-direction:column; overflow:hidden; }
+  .slides-track{ flex:1; display:flex; transition: transform .35s ease; }
+  .slide{ min-width:100%; padding: 54px 30px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .slide .slide-icon{ width:60px; height:60px; border-radius:50%; background:var(--teal-dim); display:flex; align-items:center; justify-content:center; margin-bottom:22px; font-size:26px; }
+  .slide h3{ font-size:20px; margin:0 0 10px; }
+  .slide p{ color:var(--text-dim); font-size:13px; line-height:1.6; max-width:250px; margin:0; }
+  .slide .mini-list{ text-align:left; margin-top:20px; width:100%; max-width:250px; }
+  .slide .mini-list div{ display:flex; gap:10px; align-items:flex-start; font-size:12px; color:var(--text-dim); margin-bottom:10px; }
+  .slide .mini-list div b{ color:var(--text); }
+  .slide .mini-list .ico{ width:20px; flex-shrink:0; text-align:center; }
+  .onboard-footer{ padding:18px 26px 26px; }
+  .dots{ display:flex; justify-content:center; gap:7px; margin-bottom:16px; }
+  .dots span{ width:7px; height:7px; border-radius:50%; background:var(--line); transition:.2s; }
+  .dots span.on{ background:var(--teal); width:18px; border-radius:5px; }
+  .onboard-btnrow{ display:flex; gap:10px; }
+  .onboard-btnrow button{ flex:1; font-family:'Manrope'; font-weight:800; font-size:12.5px; border:none; border-radius:12px; padding:12px; cursor:pointer; }
+  .btn-skip{ background:transparent; border:1px solid var(--line); color:var(--text-dim); }
+  .btn-next{ background:var(--teal); color:#08201D; }
+
+  /* Welcome transition */
+  .welcome-transition{ position:absolute; inset:0; background:linear-gradient(160deg,#0B1315,#16302E); z-index:24; display:none; align-items:center; justify-content:center; flex-direction:column; }
+  .welcome-transition .logo{ width:64px; height:64px; margin-bottom:18px; animation: wpulse 1.6s ease-in-out infinite; }
+  @keyframes wpulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.12); } }
+  .welcome-transition h2{ color:#fff; font-size:21px; margin:0 0 6px; text-align:center; padding:0 30px; }
+  .welcome-transition p{ color:#9DB2AE; font-size:12.5px; }
+
+  .home-head{ display:flex; align-items:center; gap:10px; margin: 8px 0 2px; }
+  .home-head .logo{ width:26px; height:26px; flex-shrink:0; }
+  .guardian-row{ display:flex; align-items:center; justify-content:space-between; background:var(--surface-2); border-radius: var(--radius-s); padding:10px 14px; margin-bottom:16px; border:1px solid var(--line);}
+  .guardian-row .lbl{ font-size:12px; color:var(--text-dim); font-weight:700; }
+  .switch{ width:36px; height:21px; border-radius:20px; background:var(--teal-dim); position:relative; cursor:pointer; flex-shrink:0; }
+  .switch::after{ content:""; width:15px; height:15px; border-radius:50%; background:var(--teal); position:absolute; top:3px; left:3px; transition:.2s; }
+  .switch.on{ background: var(--teal); }
+  .switch.on::after{ background:#08201D; left:18px; }
+
+  .sos-zone{ display:flex; flex-direction:column; align-items:center; margin: 14px 0 20px; }
+  .sos-btn{ width:142px; height:142px; border-radius:50%; border:none; cursor:pointer; position:relative; background: radial-gradient(circle at 35% 30%, #ff7c62, var(--coral) 65%); color:#fff; font-family:'Fraunces'; font-size:19px; font-weight:500; box-shadow: 0 0 0 10px var(--coral-dim), 0 20px 40px rgba(225,84,61,0.35); display:flex; align-items:center; justify-content:center; user-select:none; -webkit-user-select:none; }
+  .sos-btn svg{ position:absolute; top:-9px; left:-9px; width:160px; height:160px; transform:rotate(-90deg); }
+  .sos-btn circle{ fill:none; stroke:#fff; stroke-width:4; stroke-dasharray:440; stroke-dashoffset:440; opacity:0.85; }
+  .sos-btn.filling circle{ transition: stroke-dashoffset 1.7s linear; stroke-dashoffset:0; }
+  .sos-hint{ color:var(--text-faint); font-size:11.5px; margin-top:12px; text-align:center; max-width:220px; }
+
+  .tile-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px; }
+  .tile{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-s); padding:13px 12px; cursor:pointer; }
+  .tile svg{ width:17px; height:17px; stroke:var(--teal); fill:none; stroke-width:1.8; margin-bottom:7px; }
+  .tile b{ display:block; font-size:12px; }
+  .tile span{ font-size:10.5px; color:var(--text-faint); }
+
+  .card{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-s); padding:13px 14px; margin-bottom:10px; }
+  .card b{ display:block; font-size:13px; margin-bottom:3px; }
+  .card p{ margin:0; font-size:11.5px; color:var(--text-dim); line-height:1.5; }
+  .row-between{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .pill{ font-size:10px; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap; }
+  .pill-amber{ background:var(--amber-dim); color:var(--amber); }
+  .pill-coral{ background:var(--coral-dim); color:var(--coral); }
+  .pill-teal{ background:var(--teal-dim); color:var(--teal); }
+  .pill-violet{ background:var(--violet-dim); color:var(--violet); }
+  .sectionlabel{ font-size:10.5px; color:var(--text-faint); font-weight:700; margin: 14px 0 8px; text-transform:uppercase; letter-spacing:.03em; }
+
+  .contact-row{ display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); }
+  .contact-row:last-child{ border-bottom:none; }
+  .avatar{ width:32px; height:32px; border-radius:50%; background:var(--teal-dim); color:var(--teal); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12.5px; flex-shrink:0;}
+  .contact-row div.info{ flex:1; min-width:0; }
+  .contact-row b{ font-size:12px; display:block; }
+  .contact-row span{ font-size:10.5px; color:var(--text-faint); }
+  .icon-btn{ width:28px; height:28px; border-radius:50%; background:var(--teal-dim); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; text-decoration:none; flex-shrink:0; }
+  .icon-btn svg{ width:13px; height:13px; stroke:var(--teal); fill:none; stroke-width:2; }
+
+  .cw-card{ background:var(--surface-2); border:1px solid var(--line); border-left:3px solid var(--coral); border-radius:var(--radius-s); padding:12px 14px; margin-bottom:9px; }
+  .cw-card.level-med{ border-left-color:var(--amber); }
+  .cw-card.level-low{ border-left-color:var(--teal); }
+  .cw-card .phrase{ font-family:'Fraunces'; font-size:14px; margin-bottom:4px; }
+  .cw-card .scenario{ font-size:10px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-faint); font-weight:700; margin-bottom:5px;}
+  .cw-card p{ margin:0; font-size:11.5px; color:var(--text-dim); line-height:1.5; }
+
+  .map-card{ border-radius:var(--radius-s); overflow:hidden; border:1px solid var(--line); margin-bottom:12px; }
+  .map-visual{ height:130px; position:relative; background:
+      repeating-linear-gradient(0deg, rgba(95,179,170,0.10) 0px, rgba(95,179,170,0.10) 1px, transparent 1px, transparent 26px),
+      repeating-linear-gradient(90deg, rgba(95,179,170,0.10) 0px, rgba(95,179,170,0.10) 1px, transparent 1px, transparent 26px),
+      linear-gradient(135deg, var(--surface-2), var(--bg-2));
+  }
+  .map-pin{ position:absolute; top:50%; left:50%; transform:translate(-50%,-100%); width:16px; height:16px; }
+  .map-pin::before{ content:""; position:absolute; inset:0; background:var(--coral); border-radius:50% 50% 50% 0; transform:rotate(-45deg); box-shadow:0 3px 8px rgba(0,0,0,0.3); }
+  .map-ring{ position:absolute; top:50%; left:50%; width:44px; height:44px; margin:-22px 0 0 -22px; border-radius:50%; background:var(--coral); opacity:0.18; animation: ringpulse 2.2s ease-out infinite; }
+  @keyframes ringpulse{ 0%{ transform:scale(0.3); opacity:0.5;} 100%{ transform:scale(1.6); opacity:0; } }
+  .map-meta{ background:var(--surface-2); padding:10px 13px; font-size:11px; color:var(--text-dim); display:flex; justify-content:space-between; align-items:center; }
+  .map-meta a{ color:var(--teal); text-decoration:none; font-weight:700; }
+
+  .add-reminder{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-s); padding:14px; margin-bottom:16px; }
+  .add-reminder .frow{ display:flex; gap:8px; margin-bottom:8px; }
+  .add-reminder input, .add-reminder select{ flex:1; background:var(--surface); border:1px solid var(--line); color:var(--text); border-radius:10px; padding:9px 10px; font-family:'Manrope'; font-size:12px; min-width:0; }
+  .add-reminder input:focus, .add-reminder select:focus{ outline:none; border-color:var(--teal); }
+  .add-reminder button{ width:100%; background:var(--teal); color:#08201D; border:none; padding:10px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; }
+
+  .sticker{ position:relative; background:var(--surface-2); border:1px solid var(--line); border-radius:14px; padding:12px 14px 12px 52px; margin-bottom:12px; transform:rotate(-0.6deg); }
+  .sticker:nth-child(even){ transform:rotate(0.6deg); }
+  .sticker::before{ content:"💊"; position:absolute; left:12px; top:50%; transform:translateY(-50%); width:30px; height:30px; border-radius:50%; background:var(--amber-dim); display:flex; align-items:center; justify-content:center; font-size:15px; }
+  .sticker.appt::before{ content:"🩺"; background:var(--violet-dim); }
+  .sticker b{ display:block; font-size:12.5px; }
+  .sticker span.time{ font-size:10.5px; color:var(--text-faint); }
+  .sticker .test-link{ font-size:10px; color:var(--teal); font-weight:700; cursor:pointer; float:right; }
+
+  .voice-row{ display:flex; align-items:center; justify-content:space-between; background:var(--surface-2); border-radius:var(--radius-s); padding:9px 13px; margin-bottom:12px; border:1px solid var(--line); }
+  .voice-row .lbl{ font-size:11.5px; color:var(--text-dim); font-weight:700; display:flex; align-items:center; gap:6px; }
+  .chat-log{ min-height:60px; }
+  .msg{ max-width:82%; padding:9px 13px; border-radius:16px; font-size:12px; line-height:1.45; margin-bottom:8px; }
+  .msg.bot{ background:var(--surface-2); border:1px solid var(--line); border-bottom-left-radius:4px; }
+  .msg.user{ background:var(--teal-dim); color:var(--teal); margin-left:auto; border-bottom-right-radius:4px; }
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; margin: 8px 0 12px; }
+  .chip{ font-size:10.5px; border:1px solid var(--line); border-radius:999px; padding:6px 11px; color:var(--text-dim); background:var(--surface); cursor:pointer; }
+  .chip:hover{ border-color:var(--teal); color:var(--teal); }
+  .chat-input-row{ position:absolute; left:18px; right:18px; bottom:72px; display:flex; gap:7px; background:var(--surface); padding-top:6px; z-index:12; }
+  .companion-head{ display:flex; align-items:center; justify-content:space-between; }
+  .exit-companion{ font-size:10.5px; font-weight:700; color:var(--text-dim); background:var(--surface-2); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer; display:flex; align-items:center; gap:5px; }
+  .exit-companion:hover{ color:var(--teal); border-color:var(--teal); }
+  .quicknote{ display:flex; gap:8px; background:var(--surface-2); border:1px solid var(--line); border-radius:999px; padding:6px 6px 6px 14px; margin-bottom:16px; align-items:center; }
+  .quicknote input{ flex:1; background:transparent; border:none; color:var(--text); font-family:'Manrope'; font-size:11.5px; min-width:0; }
+  .quicknote input:focus{ outline:none; }
+  .quicknote button{ width:28px; height:28px; border-radius:50%; border:none; background:var(--teal); color:#08201D; cursor:pointer; flex-shrink:0; font-size:13px; }
+  .quicknote-label{ font-size:9.5px; color:var(--text-faint); margin:-10px 0 10px 4px; }
+  .inline-chips{ display:flex; gap:6px; margin: -2px 0 10px; }
+  .inline-chip{ font-size:10.5px; border:1px solid var(--teal); color:var(--teal); background:var(--teal-dim); border-radius:999px; padding:6px 12px; cursor:pointer; font-weight:700; }
+  .call-now-btn{ display:inline-block; margin-top:8px; background:var(--coral); color:#fff; border:none; border-radius:10px; padding:9px 14px; font-size:11.5px; font-weight:800; cursor:pointer; }
+  .topic-visual{ width:68px; height:68px; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:32px; margin:4px 0 8px; }
+  .topic-visual.illness{ background:var(--teal-dim); }
+  .topic-visual.pain{ background:var(--amber-dim); }
+  .topic-visual.mental{ background:var(--violet-dim); }
+  .topic-visual.virus{ background:var(--coral-dim); }
+  .topic-visual.medicine{ background:var(--teal-dim); }
+  .topic-select{ width:100%; background:var(--surface-2); border:1px solid var(--line); color:var(--text); border-radius:12px; padding:11px 13px; font-family:'Manrope'; font-size:12.5px; margin-bottom:12px; }
+  .topic-select:focus{ outline:none; border-color:var(--teal); }
+  .chat-input-row input{ flex:1; background:var(--surface-2); border:1px solid var(--line); color:var(--text); border-radius:999px; padding:10px 14px; font-family:'Manrope'; font-size:12px; min-width:0; }
+  .chat-input-row input:focus{ outline:none; border-color:var(--teal); }
+  .round-btn{ width:36px; height:36px; border-radius:50%; border:none; background:var(--teal); color:#08201D; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .round-btn.ghost{ background:var(--surface-2); border:1px solid var(--line); color:var(--text-dim); }
+  .round-btn svg{ width:15px; height:15px; }
+
+  .fab{ position:absolute; right:16px; bottom:84px; width:50px; height:50px; border-radius:50%; background:var(--teal); border:none; box-shadow:0 10px 24px rgba(95,179,170,0.4); display:none; align-items:center; justify-content:center; cursor:pointer; z-index:15; }
+  .fab svg{ width:22px; height:22px; stroke:#08201D; fill:none; stroke-width:1.9; }
+  .fab .dot{ position:absolute; top:2px; right:2px; width:9px; height:9px; border-radius:50%; background:var(--coral); border:2px solid var(--surface); }
+
+  .toast{ position:absolute; left:16px; right:16px; bottom:80px; background:var(--surface-2); border:1px solid var(--teal); color:var(--text); padding:11px 14px; border-radius:14px; font-size:11.5px; box-shadow:var(--shadow); z-index:30; opacity:0; transform:translateY(8px); transition:.25s; pointer-events:none; }
+  .toast.show{ opacity:1; transform:translateY(0); }
+
+  .overlay{ position:fixed; inset:0; background:rgba(4,10,10,0.6); display:none; align-items:center; justify-content:center; z-index:50; backdrop-filter: blur(3px); }
+  .overlay.show{ display:flex; }
+  .lock-screen{ width:320px; height:664px; border-radius:46px; background: linear-gradient(160deg, #0B1315, #16302E); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 40px 22px 26px; color:#F2F5F1; display:flex; flex-direction:column; align-items:center; position:relative; }
+  .lock-screen .logo{ width:30px; height:30px; margin-bottom:8px; }
+  .lock-time{ font-family:'Fraunces'; font-size:48px; font-weight:400; margin-bottom:2px; }
+  .lock-date{ font-size:12px; color:#9DB2AE; margin-bottom:20px; }
+  .lock-card{ width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:18px; padding:15px; }
+  .lock-card .h{ display:flex; align-items:center; gap:7px; font-size:10.5px; font-weight:800; letter-spacing:0.02em; color:#E3AE4E; margin-bottom:9px;}
+  .lock-card .h .d{ width:6px; height:6px; border-radius:50%; background:#E3AE4E; }
+  .lock-line{ display:flex; justify-content:space-between; font-size:11.5px; padding:5px 0; color:#F2F5F1; border-bottom:1px solid rgba(255,255,255,0.07); }
+  .lock-line:last-child{ border-bottom:none; }
+  .lock-line span{ color:#9DB2AE; }
+  .lock-sos{ margin-top:auto; width:100%; background:var(--coral); color:#fff; border:none; border-radius:16px; padding:14px; font-family:'Manrope'; font-weight:800; font-size:13px; cursor:pointer; }
+  .close-overlay{ position:absolute; top:-42px; right:0; background:none; border:1px solid rgba(255,255,255,0.25); color:#fff; width:32px; height:32px; border-radius:50%; cursor:pointer; }
+
+  .panic-flow{ width:320px; height:664px; border-radius:46px; background:#12211F; padding:30px 24px; color:#fff; display:flex; flex-direction:column; }
+  .panic-flow .pulse{ width:60px; height:60px; border-radius:50%; background:var(--coral-dim); display:flex; align-items:center; justify-content:center; margin: 4px auto 16px; }
+  .panic-flow .pulse .core{ width:32px; height:32px; border-radius:50%; background:var(--coral); }
+  .panic-flow h3{ text-align:center; font-size:18px; margin:0 0 4px; }
+  .panic-flow .sub{ text-align:center; color:#9DB2AE; font-size:11.5px; margin-bottom:16px; }
+  .step{ display:flex; align-items:center; gap:10px; padding:8px 0; opacity:0.3; transition:opacity .3s; font-size:12px; }
+  .step.done{ opacity:1; }
+  .step .tick{ width:17px; height:17px; border-radius:50%; border:1.5px solid #9DB2AE; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:9px; }
+  .step.done .tick{ background:var(--teal); border-color:var(--teal); color:#08201D; }
+  .panic-flow .footer-btns{ margin-top:auto; display:flex; flex-direction:column; gap:9px; }
+  .panic-flow .btn-safe{ background:var(--teal); color:#08201D; border:none; padding:13px; border-radius:14px; font-weight:800; font-size:12.5px; cursor:pointer; }
+  .panic-flow .btn-cancel{ background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:13px; border-radius:14px; font-weight:700; font-size:12.5px; cursor:pointer; }
+
+  .calm-flow{ width:320px; height:664px; border-radius:46px; background:linear-gradient(170deg,#122522,#0B1315); padding:30px 26px; color:#fff; display:flex; flex-direction:column; align-items:center; }
+  .breath-ring{ width:150px; height:150px; border-radius:50%; border:1.5px solid var(--teal-dim); display:flex; align-items:center; justify-content:center; margin:40px auto 26px; transition: transform 4s ease-in-out; }
+  .breath-core{ width:100px; height:100px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #8fd9cf, var(--teal) 70%); display:flex; align-items:center; justify-content:center; font-family:'Fraunces'; font-size:14px; color:#08201D; text-align:center; }
+  .breath-ring.inhale{ transform:scale(1.25); }
+  .breath-ring.exhale{ transform:scale(0.85); }
+  .calm-flow p.msg2{ text-align:center; color:#9DB2AE; font-size:12.5px; line-height:1.6; max-width:230px; margin:0 auto; }
+  .calm-flow .footer-btns{ margin-top:auto; width:100%; }
+  .calm-flow .btn-cancel{ width:100%; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:13px; border-radius:14px; font-weight:700; font-size:12.5px; cursor:pointer; }
+
+  .theme-toggle{ position:fixed; bottom:20px; right:20px; background:var(--surface); border:1px solid var(--line); color:var(--text-dim); font-size:12px; padding:9px 14px; border-radius:999px; cursor:pointer; z-index:40; box-shadow:var(--shadow); }
+
+  .features{ display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin-top:70px; }
+  @media (max-width:760px){ .features{ grid-template-columns:1fr; } }
+  .feature{ border-top:1px solid var(--line); padding-top:18px; }
+  .feature b{ display:block; font-family:'Fraunces'; font-size:16.5px; margin-bottom:8px; }
+  .feature p{ color:var(--text-dim); font-size:12.5px; line-height:1.55; margin:0; }
+  .credit{ text-align:center; color:var(--text-faint); font-size:12px; margin-top:70px; }
+  .notebar{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px 18px; font-size:12.5px; color:var(--text-dim); line-height:1.6; margin-top:20px; }
+  .notebar b{ color:var(--text); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div>
+      <div class="brandrow">
+        <span class="logo"><svg viewBox="0 0 40 40"><path d="M20 33s-13-7.6-13-17.2C7 10.2 10.9 6.5 15.4 6.5c2.4 0 4.7 1.2 6 3.1 1.3-1.9 3.6-3.1 6-3.1C31.9 6.5 35.8 10.2 35.8 15c0 4.4-3 8.3-6.3 11.3" stroke="var(--teal)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21h6l2.5-6 3 11 2.5-7h5" stroke="var(--coral)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>Vital Nexus</span>
+      </div>
+      <div class="kicker"><span class="dot"></span> PROTOTYPE · ONBOARDING, LIVE MAP, VOICE COMPANION</div>
+      <h1 class="title">The seconds between crisis and help, <em>closed.</em></h1>
+      <p class="lede">A life-saving companion for elderly and vulnerable people — a short welcome, three slides on how it works, then everything: silent alarms, a medically fluent AI that talks back, real live location, and reminders that actually fire.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="document.getElementById('lockOverlay').classList.add('show')">See the lock screen</button>
+        <button class="btn btn-ghost" onclick="document.querySelector('.phone-stage').scrollIntoView({behavior:'smooth'})">Open the app</button>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>3 slides</b><span>then straight into the app</span></div>
+        <div class="stat"><b>Real contacts</b><span>add a number, call it for real</span></div>
+        <div class="stat"><b>Never robotic</b><span>varied, human-sounding replies</span></div>
+      </div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone">
+        <div class="screen">
+
+          <!-- SIGN IN -->
+          <div class="signin-screen" id="signinScreen">
+            <span class="logo"><svg viewBox="0 0 40 40"><path d="M20 33s-13-7.6-13-17.2C7 10.2 10.9 6.5 15.4 6.5c2.4 0 4.7 1.2 6 3.1 1.3-1.9 3.6-3.1 6-3.1C31.9 6.5 35.8 10.2 35.8 15c0 4.4-3 8.3-6.3 11.3" stroke="var(--teal)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21h6l2.5-6 3 11 2.5-7h5" stroke="var(--coral)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h2>Welcome to Vital Nexus</h2>
+            <p>Sign in so your circle, your medical profile, and your codewords are ready when you need them.</p>
+            <div class="signin-field"><label>Your name</label><input type="text" id="signinName" placeholder="e.g. Emma Carter"></div>
+            <div class="signin-field"><label>Phone or email</label><input type="text" id="signinContact" placeholder="you@example.com"></div>
+            <button class="signin-btn" onclick="doSignIn()">Sign in &amp; continue</button>
+            <div class="signin-alt">Prototype only — nothing is sent anywhere</div>
+            <div class="signin-badges"><span>🔒 Private by default</span><span>🩺 Medical-aware</span></div>
+          </div>
+
+          <!-- ONBOARDING -->
+          <div class="onboard-screen" id="onboardScreen">
+            <div class="slides-track" id="slidesTrack">
+              <div class="slide">
+                <div class="slide-icon">👋</div>
+                <h3 id="welcomeSlideTitle">Good to have you here</h3>
+                <p id="welcomeSlideText">We're glad you're here.</p>
+              </div>
+              <div class="slide">
+                <div class="slide-icon">🧭</div>
+                <h3>What Vital Nexus does</h3>
+                <p>One app, three jobs: keep your medical info ready, keep help one tap away, and keep you calm in between.</p>
+                <div class="mini-list">
+                  <div><span class="ico">🆘</span><span><b>Hold-to-SOS</b> alerts your circle silently</span></div>
+                  <div><span class="ico">🩺</span><span><b>Medical profile</b> visible to responders</span></div>
+                  <div><span class="ico">💬</span><span><b>A companion</b> that talks, listens, and calms</span></div>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="slide-icon">🔑</div>
+                <h3>How safety works here</h3>
+                <p>Codewords for different kinds of danger, live location you control, and reminders that really go off.</p>
+                <div class="mini-list">
+                  <div><span class="ico">🗝️</span><span>Say or type a codeword — different phrases, different responses</span></div>
+                  <div><span class="ico">📍</span><span>Share your real live location with your circle any time</span></div>
+                  <div><span class="ico">💊</span><span>Set a reminder — your phone actually notifies you</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="onboard-footer">
+              <div class="dots" id="dots"><span class="on"></span><span></span><span></span></div>
+              <div class="onboard-btnrow">
+                <button class="btn-skip" id="skipBtn" onclick="skipOnboarding()">Skip</button>
+                <button class="btn-next" id="nextBtn" onclick="nextSlide()">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- WELCOME TRANSITION -->
+          <div class="welcome-transition" id="welcomeTransition">
+            <span class="logo"><svg viewBox="0 0 40 40"><path d="M20 33s-13-7.6-13-17.2C7 10.2 10.9 6.5 15.4 6.5c2.4 0 4.7 1.2 6 3.1 1.3-1.9 3.6-3.1 6-3.1C31.9 6.5 35.8 10.2 35.8 15c0 4.4-3 8.3-6.3 11.3" stroke="#5FB3AA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21h6l2.5-6 3 11 2.5-7h5" stroke="#E1543D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h2 id="welcomeTransitionText">Welcome to Vital Nexus</h2>
+            <p>Setting things up for you…</p>
+          </div>
+
+          <div class="statusbar"><span id="clock">9:41</span><span>●●●● Wi-Fi 82%</span></div>
+
+          <div class="content">
+
+            <div class="view active" id="view-home">
+              <div class="home-head">
+                <span class="logo"><svg viewBox="0 0 40 40"><path d="M20 33s-13-7.6-13-17.2C7 10.2 10.9 6.5 15.4 6.5c2.4 0 4.7 1.2 6 3.1 1.3-1.9 3.6-3.1 6-3.1C31.9 6.5 35.8 10.2 35.8 15c0 4.4-3 8.3-6.3 11.3" stroke="var(--teal)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21h6l2.5-6 3 11 2.5-7h5" stroke="var(--coral)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div style="flex:1;"><p class="screen-name" style="margin:0;">Good evening, <span id="homeName">Emma</span></p></div>
+                <button class="icon-btn" onclick="showTab('history')" title="History"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/><path d="M12 7v5l4 2"/></svg></button>
+                <button class="icon-btn" onclick="showTab('settings')" title="Settings" style="margin-left:6px;"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
+              </div>
+              <p class="screen-sub">Everything looks calm right now.</p>
+
+              <div class="quicknote">
+                <input type="text" id="quickNote" placeholder="Jot a quick note…" onkeydown="if(event.key==='Enter')submitQuickNote()">
+                <button onclick="submitQuickNote()">✓</button>
+              </div>
+              <div class="quicknote-label">This box also quietly recognises your codewords — it always just looks like a note.</div>
+
+              <div class="card" id="statusBanner" style="display:none;"></div>
+
+              <div class="card" id="checkinCard">
+                <div class="row-between"><b>Walking somewhere?</b><span class="pill pill-teal">Check-in timer</span></div>
+                <p>Set a timer — if you don't confirm safe before it ends, your circle gets notified automatically.</p>
+                <div class="add-reminder" style="margin-top:10px;">
+                  <div class="frow"><input type="number" id="checkinMinutes" placeholder="Minutes, e.g. 20" min="1" style="flex:1;"></div>
+                  <button onclick="startCheckin()" id="checkinStartBtn">Start check-in</button>
+                </div>
+                <div id="checkinActive" style="display:none;">
+                  <div class="row-between" style="margin-top:10px;"><b id="checkinTimeLeft">--:--</b><span class="pill pill-amber">Counting down</span></div>
+                  <button class="btn btn-primary" style="width:100%; margin-top:10px;" onclick="confirmSafe()">✓ I'm safe now</button>
+                </div>
+              </div>
+
+              <div class="guardian-row">
+                <span class="lbl">Guardian mode · alerts a contact if you go silent</span>
+                <div class="switch on" onclick="this.classList.toggle('on')"></div>
+              </div>
+
+              <div class="sos-zone">
+                <button class="sos-btn" id="sosBtn">
+                  <svg viewBox="0 0 160 160"><circle cx="80" cy="80" r="70"></circle></svg>
+                  Hold for SOS
+                </button>
+                <p class="sos-hint">Press and hold two seconds. Release early to cancel — nothing is sent until the ring completes.</p>
+              </div>
+
+              <div class="tile-grid">
+                <div class="tile" onclick="showTab('medical')"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg><b>Medical profile</b><span>Allergies · conditions</span></div>
+                <div class="tile" onclick="showTab('reminders')"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><b>Reminders</b><span id="reminderCountLabel">2 scheduled</span></div>
+                <div class="tile" onclick="showTab('circle')"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 8.5a3 3 0 1 0 0-6M18 14c2.2.4 4 2.2 4 4.5"/></svg><b>Trusted circle</b><span>Contacts · codewords</span></div>
+                <div class="tile" onclick="showTab('companion')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 1 1-3.8-7.1L21 3l-1.2 3.8c.7 1.1 1.2 2.4 1.2 3.7Z"/></svg><b>Companion</b><span>Speaks &amp; listens</span></div>
+              </div>
+            </div>
+
+            <div class="view" id="view-medical">
+              <p class="screen-name">Medical profile</p>
+              <p class="screen-sub">Visible to responders and your circle in an emergency.</p>
+              <div id="medicalList">
+              <div class="card" data-mid="m1"><div class="row-between"><b>Type 1 diabetes</b><span class="pill pill-teal">Condition</span></div><p>Carries fast-acting glucose. If unresponsive and glucose is low, do not give insulin.</p><span class="test-link" onclick="removeMedicalItem('m1')">remove</span></div>
+              <div class="card" data-mid="m2"><div class="row-between"><b>Penicillin</b><span class="pill pill-coral">Allergy</span></div><p>Reaction: swelling, difficulty breathing. Use alternative antibiotics only.</p><span class="test-link" onclick="removeMedicalItem('m2')">remove</span></div>
+              <div class="card" data-mid="m3"><div class="row-between"><b>Peanuts</b><span class="pill pill-coral">Allergy</span></div><p>Severe. Epinephrine auto-injector kept in the bag's front pocket.</p><span class="test-link" onclick="removeMedicalItem('m3')">remove</span></div>
+              <div class="card" data-mid="m4"><div class="row-between"><b>Mild asthma</b><span class="pill pill-teal">Condition</span></div><p>Inhaler kept in every bag. Triggered by cold air and dust.</p><span class="test-link" onclick="removeMedicalItem('m4')">remove</span></div>
+              </div>
+              <p class="sectionlabel">Add to your profile</p>
+              <div class="add-reminder">
+                <div class="frow"><select id="medType"><option value="Condition">Condition</option><option value="Allergy">Allergy</option><option value="Medication">Medication</option></select><input type="text" id="medName" placeholder="e.g. Latex, High blood pressure"></div>
+                <div class="frow"><input type="text" id="medNote" placeholder="Note for responders (reaction, dosage, what to do)"></div>
+                <button onclick="addMedicalItem()">Add to my medical profile</button>
+              </div>
+              <div class="notebar" style="margin-top:0;"><b>Where this shows up:</b> anything added here would also appear on your lock screen and be known to the companion, exactly like the starting entries above.</div>
+              <p class="sectionlabel">Ask the companion about any condition</p>
+              <div class="chips">
+                <span class="chip" onclick="showTab('companion'); askTopic('diabetes')">Diabetes</span>
+                <span class="chip" onclick="showTab('companion'); askTopic('asthma')">Asthma</span>
+                <span class="chip" onclick="showTab('companion'); askTopic('epilepsy')">Epilepsy</span>
+                <span class="chip" onclick="showTab('companion'); askTopic('heart')">Heart condition</span>
+              </div>
+            </div>
+
+            <div class="view" id="view-reminders">
+              <p class="screen-name">Reminders</p>
+              <p class="screen-sub">Set a time — this preview actually schedules and fires it.</p>
+              <div class="add-reminder">
+                <div class="frow"><select id="remType"><option value="med">Medicine</option><option value="appt">Appointment</option></select><input type="text" id="remLabel" placeholder="e.g. Metformin 500mg"></div>
+                <div class="frow"><input type="time" id="remTime"></div>
+                <button onclick="addReminder()">Set reminder</button>
+              </div>
+              <div id="reminderList"></div>
+              <div class="notebar"><b>How this works:</b> tapping "Set reminder" asks your browser for notification permission, then schedules a real alert for that clock time today. Use "test now" on any card to fire it immediately and see it work.</div>
+            </div>
+
+            <div class="view" id="view-circle">
+              <p class="screen-name">Trusted circle</p>
+              <p class="screen-sub">Reached first, before any outside line.</p>
+              <div class="card" id="contactList">
+                <div class="contact-row">
+                  <div class="avatar">S</div>
+                  <div class="info"><b>Sophie (daughter)</b><span>Primary contact · always notified</span></div>
+                  <a class="icon-btn" href="tel:+15550142" onclick="callNumber('+15550142','Sophie'); return true;" title="Call Sophie"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6A2 2 0 0 1 22 16.9Z"/></svg></a>
+                </div>
+                <div class="contact-row">
+                  <div class="avatar">A</div>
+                  <div class="info"><b>Alex (neighbour)</b><span>Backup contact · 5 min walk away</span></div>
+                  <a class="icon-btn" href="tel:+15550199" onclick="callNumber('+15550199','Alex'); return true;" title="Call Alex"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6A2 2 0 0 1 22 16.9Z"/></svg></a>
+                </div>
+              </div>
+
+              <p class="sectionlabel">Add a real contact</p>
+              <div class="add-reminder">
+                <div class="frow"><input type="text" id="newContactName" placeholder="Name (e.g. Mum)"></div>
+                <div class="frow"><input type="tel" id="newContactPhone" placeholder="Real phone number, e.g. +1 555 000 0000"></div>
+                <button onclick="addContact()">Add contact — enables real calling</button>
+              </div>
+
+              <p class="sectionlabel">Emergency helpline</p>
+              <div class="card" id="helplineCard">
+                <div class="row-between"><div><b id="helplineNumber">Not set yet</b><p>Enter your real local emergency number below — the call button will dial exactly what you enter.</p></div></div>
+              </div>
+              <div class="add-reminder">
+                <div class="frow"><input type="tel" id="helplineInput" placeholder="e.g. 911, 999, 112"></div>
+                <button onclick="saveHelpline()">Save my local emergency number</button>
+              </div>
+
+              <p class="sectionlabel">Live location</p>
+              <div class="map-card">
+                <div class="map-visual"><div class="map-ring"></div><div class="map-pin"></div></div>
+                <div class="map-meta"><span id="mapCoords">Tap "share" for your real position</span><a href="#" id="mapOpenLink" onclick="return false;">Open in Maps</a></div>
+              </div>
+              <button class="btn btn-ghost" style="width:100%; margin-bottom:16px;" onclick="shareLiveLocation()">Share live location now</button>
+
+              <p class="sectionlabel">Safe codewords — one per kind of danger</p>
+              <div class="notebar" style="margin:0 0 12px;"><b>Where to use them:</b> type any phrase below into the "quick note" box on Home (it always just looks like a note) or into the Companion chat, or say the phrase out loud during a real phone call to a contact who knows it. Tap a card below to try it and see exactly what happens.</div>
+              <div class="cw-card" onclick="tryCodeword('silent_circle')"><div class="scenario">General unease</div><div class="phrase">"Did you feed the cat today?"</div><p>Silently alerts your whole circle with your live location — no sound, no visible change on your screen.</p></div>
+              <div class="cw-card level-med" onclick="tryCodeword('duress_signal')"><div class="scenario">Forced to make a call</div><div class="phrase">"Is Mom's soup ready yet?"</div><p>Said naturally mid-call. Your contact is primed to hear it as a signal, keep the conversation normal, and quietly alert others for you.</p></div>
+              <div class="cw-card" onclick="tryCodeword('priority_police')"><div class="scenario">Weapon or immediate danger</div><div class="phrase">"Can you grab my red umbrella?"</div><p>Skips the circle entirely — goes straight to emergency responders with your location. Highest priority, no confirmation step.</p></div>
+              <div class="cw-card level-low" onclick="tryCodeword('follow_watch')"><div class="scenario">Being followed</div><div class="phrase">"What time's the dentist tomorrow?"</div><p>Shares continuous live location and quietly calls your nearest trusted contact to come find you.</p></div>
+              <div class="cw-card level-low" onclick="tryCodeword('trip_watch')"><div class="scenario">Unsafe ride or taxi</div><div class="phrase">"What's the wifi password there?"</div><p>Shares your live trip location with your circle continuously until you check in safe — no alarm shown to the driver.</p></div>
+              <div class="cw-card" onclick="tryCodeword('home_alert')"><div class="scenario">Unsafe at home</div><div class="phrase">"Has the plumber come by yet?"</div><p>Silently alerts your circle and nearest contact with your home address and live status — treated as high priority.</p></div>
+            </div>
+
+            <div class="view" id="view-companion">
+              <div class="companion-head">
+                <p class="screen-name">Companion</p>
+                <button class="exit-companion" onclick="showTab('home')">✕ Exit chat</button>
+              </div>
+              <p class="screen-sub">Medical guidance, calm support, real conversation.</p>
+              <div class="voice-row"><span class="lbl">🔊 Voice replies</span><div class="switch" id="voiceSwitch" onclick="this.classList.toggle('on')"></div></div>
+              <div class="voice-row"><span class="lbl">🎙️ Hands-free conversation (auto-listen after each reply)</span><div class="switch" id="conversationSwitch" onclick="this.classList.toggle('on'); if(this.classList.contains('on')) document.getElementById('voiceSwitch').classList.add('on');"></div></div>
+              <select class="topic-select" id="topicDropdown" onchange="if(this.value){ askTopic(this.value); this.selectedIndex=0; }">
+                <option value="" selected disabled>📋 Browse all topics…</option>
+                <optgroup label="🌡️ Everyday aches & illness">
+                  <option value="fever">Fever</option>
+                  <option value="cough">Cough / cold</option>
+                  <option value="headache">Headache</option>
+                  <option value="stomach">Upset stomach</option>
+                  <option value="joint">Joint pain</option>
+                  <option value="arm">Arm pain</option>
+                  <option value="back">Back pain</option>
+                  <option value="muscle">Muscle cramps</option>
+                  <option value="neck">Neck pain</option>
+                  <option value="leg">Leg pain</option>
+                  <option value="tooth">Toothache</option>
+                  <option value="ear">Earache</option>
+                </optgroup>
+                <optgroup label="🩺 Ongoing conditions">
+                  <option value="diabetes">Diabetes</option>
+                  <option value="asthma">Asthma</option>
+                  <option value="epilepsy">Epilepsy / seizure</option>
+                  <option value="heart">Chest pain / heart</option>
+                  <option value="allergy">Allergic reaction</option>
+                  <option value="bleeding">Bleeding / wound</option>
+                  <option value="choking">Choking</option>
+                </optgroup>
+                <optgroup label="🦠 Infectious diseases">
+                  <option value="flu">Flu</option>
+                  <option value="coldvirus">Common cold</option>
+                  <option value="malaria">Malaria</option>
+                  <option value="typhoid">Typhoid</option>
+                  <option value="cholera">Cholera</option>
+                  <option value="tuberculosis">Tuberculosis</option>
+                  <option value="pneumonia">Pneumonia</option>
+                  <option value="uti">UTI</option>
+                </optgroup>
+                <optgroup label="🧠 Mental health">
+                  <option value="anxiety">Panic attack</option>
+                  <option value="depression">Depression</option>
+                  <option value="anxietydisorder">Anxiety disorder</option>
+                  <option value="panicdisorder">Panic disorder</option>
+                  <option value="ocd">OCD</option>
+                  <option value="ptsd">PTSD</option>
+                  <option value="socialanxiety">Social anxiety</option>
+                </optgroup>
+                <optgroup label="💊 Medicine dosing">
+                  <option value="ibuprofen">Ibuprofen dose</option>
+                  <option value="paracetamol">Panadol dose</option>
+                  <option value="coldrex">Coldrex</option>
+                </optgroup>
+                <optgroup label="💬 Just talk">
+                  <option value="calm">Calm me down</option>
+                  <option value="meditate">Meditate</option>
+                  <option value="lonely">Feeling lonely</option>
+                  <option value="chat">Just chat</option>
+                </optgroup>
+              </select>
+              <div class="chat-log" id="chatLog">
+                <div class="msg bot">Hi, I'm your Vital Nexus companion. I know your medical profile and I'm here for emergencies, quiet moments, or just company. Tap a topic above, or type anything below.</div>
+              </div>
+            </div>
+
+            <div class="view" id="view-history">
+              <div class="companion-head">
+                <p class="screen-name">History</p>
+                <button class="exit-companion" onclick="showTab('home')">✕ Back</button>
+              </div>
+              <p class="screen-sub">A record of alerts, reminders, and check-ins.</p>
+              <div id="historyList"></div>
+              <div class="notebar" id="historyEmpty" style="display:none;">Nothing logged yet — SOS alerts, codewords, reminders, and check-ins will show up here as you use the app.</div>
+            </div>
+
+            <div class="view" id="view-settings">
+              <div class="companion-head">
+                <p class="screen-name">Settings &amp; privacy</p>
+                <button class="exit-companion" onclick="showTab('home')">✕ Back</button>
+              </div>
+              <p class="screen-sub">What's stored, and how to clear it.</p>
+
+              <div class="card"><div class="row-between"><b>Guardian mode</b><span class="pill pill-teal">On</span></div><p>Alerts a contact if you go silent for an extended period.</p></div>
+              <div class="card"><div class="row-between"><b>Voice replies</b><span class="pill pill-teal">Off by default</span></div><p>Toggle in the Companion tab — nothing is spoken unless you turn it on.</p></div>
+
+              <p class="sectionlabel">What this prototype stores</p>
+              <div class="notebar">Everything you've entered — your name, contacts, medical profile, reminders — stays only in this browser tab's memory. Nothing is sent to a server, nothing is saved once you close the tab, and nothing is shared with anyone unless you explicitly tap a call or share-location button yourself.</div>
+
+              <p class="sectionlabel">Clear everything</p>
+              <div class="card">
+                <p style="margin-bottom:10px;">Wipes your added contacts, medical entries, reminders, and activity history from this session. Your name and sign-in stay as is.</p>
+                <button class="btn" style="width:100%; background:var(--coral); color:#fff;" onclick="clearAllData()">Clear my data</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-input-row" id="chatInputRow" style="display:none;">
+            <button class="round-btn ghost" id="micBtn" onclick="startListening()" title="Speak"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg></button>
+            <input type="text" id="chatInput" placeholder="Ask about a condition, or just talk…" onkeydown="if(event.key==='Enter')sendChat()">
+            <button class="round-btn" onclick="sendChat()"><svg viewBox="0 0 24 24" stroke="#08201D" stroke-width="2" fill="none"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+          </div>
+
+          <button class="fab" id="fabBtn" onclick="showTab('companion')" title="Talk to your companion">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 1 1-3.8-7.1L21 3l-1.2 3.8c.7 1.1 1.2 2.4 1.2 3.7Z"/></svg>
+            <span class="dot"></span>
+          </button>
+
+          <div class="toast" id="toast"></div>
+
+          <div class="tabbar" id="tabbar">
+            <button class="tab active" data-tab="home" onclick="showTab('home')"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5 10v10h14V10"/></svg>Home</button>
+            <button class="tab" data-tab="medical" onclick="showTab('medical')"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg>Medical</button>
+            <button class="tab" data-tab="reminders" onclick="showTab('reminders')"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Remind</button>
+            <button class="tab" data-tab="circle" onclick="showTab('circle')"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 8.5a3 3 0 1 0 0-6M18 14c2.2.4 4 2.2 4 4.5"/></svg>Circle</button>
+            <button class="tab" data-tab="companion" onclick="showTab('companion')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 1 1-3.8-7.1L21 3l-1.2 3.8c.7 1.1 1.2 2.4 1.2 3.7Z"/></svg>Talk</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><b>A welcome that changes every time</b><p>Every sign-in shows a different opening note and a fresh three-slide walkthrough of what the app does before you land inside — never the exact same words twice.</p></div>
+    <div class="feature"><b>A companion that doesn't sound scripted</b><p>Guidance for the same condition is worded a little differently each time you ask, and it can also just meditate with you, sit with loneliness, or have a plain conversation — not only emergencies.</p></div>
+    <div class="feature"><b>Contacts you actually control</b><p>Add a real name and real phone number and the call button dials it for real — plus your own local emergency number, entered by you, not assumed for you.</p></div>
+  </section>
+
+  <div class="notebar">
+    <b>What's genuinely real in this preview:</b> contacts you add use real tel: links to the number you typed, the live GPS card uses your device's actual location with your permission, reminders use real browser notifications, and the companion can speak its replies aloud and listen with your microphone if your browser supports it.
+    <br><br>
+    <b>What still needs a native app to be fully true:</b> it can't run in the true background, can't work with zero internet connection at all, and won't auto-dial a number without you pressing call.
+  </div>
+
+  <p class="credit">Prototype built from the Vital Nexus concept notes · tap around the phone above</p>
+</div>
+
+<div class="overlay" id="lockOverlay">
+  <div style="position:relative;">
+    <button class="close-overlay" onclick="document.getElementById('lockOverlay').classList.remove('show')">✕</button>
+    <div class="lock-screen">
+      <span class="logo"><svg viewBox="0 0 40 40"><path d="M20 33s-13-7.6-13-17.2C7 10.2 10.9 6.5 15.4 6.5c2.4 0 4.7 1.2 6 3.1 1.3-1.9 3.6-3.1 6-3.1C31.9 6.5 35.8 10.2 35.8 15c0 4.4-3 8.3-6.3 11.3" stroke="#5FB3AA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21h6l2.5-6 3 11 2.5-7h5" stroke="#E1543D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <div class="lock-time" id="lockClock">9:41</div>
+      <div class="lock-date">Tuesday, 16 September</div>
+      <div class="lock-card">
+        <div class="h"><span class="d"></span>CRITICAL INFO — VISIBLE LOCKED</div>
+        <div class="lock-line"><span>Blood type</span> O+</div>
+        <div class="lock-line"><span>Conditions</span> Type 1 diabetes, asthma</div>
+        <div class="lock-line"><span>Allergies</span> Penicillin, peanuts</div>
+        <div class="lock-line"><span>Emergency contact</span> Sophie · 555-0142</div>
+      </div>
+      <button class="lock-sos" onclick="document.getElementById('lockOverlay').classList.remove('show'); openPanic();">Hold for SOS</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="panicOverlay">
+  <div style="position:relative;">
+    <button class="close-overlay" onclick="closePanic()">✕</button>
+    <div class="panic-flow">
+      <div class="pulse"><div class="core"></div></div>
+      <h3>Alert in progress</h3>
+      <p class="sub">Your circle is being reached now.</p>
+      <div id="steps">
+        <div class="step" data-t="300"><div class="tick">✓</div> Notifying your primary contact</div>
+        <div class="step" data-t="1200"><div class="tick">✓</div> Sharing live location</div>
+        <div class="step" data-t="2100"><div class="tick">✓</div> Locating nearest hospital — 1.4 km away</div>
+        <div class="step" data-t="3000"><div class="tick">✓</div> Emergency line on standby</div>
+      </div>
+      <button class="call-now-btn" id="panicCallBtn" onclick="callNumber(primaryContact.number, primaryContact.name)" style="width:100%; text-align:center; margin-bottom:12px;">📞 Call your primary contact now</button>
+      <div class="footer-btns">
+        <button class="btn-safe" onclick="closePanic()">I'm safe now — end alert</button>
+        <button class="btn-cancel" onclick="closePanic()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="calmOverlay">
+  <div style="position:relative;">
+    <button class="close-overlay" onclick="closeCalm()">✕</button>
+    <div class="calm-flow">
+      <div class="breath-ring" id="breathRing"><div class="breath-core" id="breathCore">Breathe in…</div></div>
+      <p class="msg2" id="breathMsg">You're safe right now. Let's slow things down together — in for four, hold, out for four.</p>
+      <div class="footer-btns"><button class="btn-cancel" onclick="closeCalm()">I feel better</button></div>
+    </div>
+  </div>
+</div>
+
+<button class="theme-toggle" onclick="toggleTheme()">Toggle light / dark</button>
+
+<script>
+  var userName = "Emma";
+  var savedHelplineNumber = null;
+  var primaryContact = { name: "Sophie", number: "+15550142" };
+
+  /* ---------------- real calling ---------------- */
+  function callNumber(rawNumber, label){
+    var num = (rawNumber || '').replace(/[^0-9+]/g,'');
+    if(!num){ showToast('No number saved for ' + label + ' yet.'); return; }
+    var copied = false;
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(rawNumber);
+        copied = true;
+      }
+    }catch(e){}
+    if(copied){
+      showToast('📋 Copied ' + label + "'s number (" + rawNumber + ") — open your Phone app and paste it in.", 6000);
+    } else {
+      showToast('Call ' + label + ' at: ' + rawNumber, 6000);
+    }
+    try{ window.location.href = 'tel:' + num; }catch(e){}
+  }
+
+  var welcomeNotes = [
+    { title: "Good to have you here", text: "We're keeping an eye out with you today." },
+    { title: "Glad you're back", text: "Everything's exactly where you left it." },
+    { title: "Hello again", text: "A calm start to whatever today brings." },
+    { title: "Welcome in", text: "Your circle, your profile, your codewords — all ready." },
+    { title: "One tap away from help", text: "That's the whole idea. Let's show you around." },
+    { title: "Take a breath", text: "\u201cYou don't have to see the whole staircase, just take the first step.\u201d — Martin Luther King Jr." },
+    { title: "Small steps count", text: "\u201cCourage doesn't always roar. Sometimes it's the quiet voice saying, I'll try again tomorrow.\u201d — Mary Anne Radmacher" },
+    { title: "You're not alone in this", text: "Asking for a safety net isn't weakness — it's just being wise." },
+    { title: "Glad you showed up today", text: "\u201cWorry does not empty tomorrow of its sorrow, it empties today of its strength.\u201d — Corrie ten Boom" },
+    { title: "Here for the quiet days too", text: "This app isn't only for emergencies — it's for ordinary Tuesdays as well." },
+    { title: "One thing at a time", text: "\u201cYou are not required to set yourself on fire to keep others warm.\u201d — unknown" },
+    { title: "Good to see you", text: "Whatever kind of day this turns out to be, something's got your back now." }
+  ];
+  var lastNoteIndex = -1;
+  function pickWelcomeNote(){
+    if(welcomeNotes.length === 1) return welcomeNotes[0];
+    var idx;
+    do{ idx = Math.floor(Math.random()*welcomeNotes.length); } while(idx === lastNoteIndex);
+    lastNoteIndex = idx;
+    return welcomeNotes[idx];
+  }
+
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  /* ---------------- sign in ---------------- */
+  function doSignIn(){
+    var name = document.getElementById('signinName').value.trim();
+    userName = name ? name.split(' ')[0] : 'Emma';
+    document.getElementById('homeName').textContent = userName;
+    document.getElementById('signinScreen').style.display = 'none';
+
+    var note = pickWelcomeNote();
+    document.getElementById('welcomeSlideTitle').textContent = note.title + ", " + userName;
+    document.getElementById('welcomeSlideText').textContent = note.text;
+
+    currentSlide = 0;
+    updateSlidePosition();
+    document.getElementById('onboardScreen').style.display = 'flex';
+  }
+
+  /* ---------------- onboarding slides ---------------- */
+  var currentSlide = 0;
+  var totalSlides = 3;
+  function updateSlidePosition(){
+    document.getElementById('slidesTrack').style.transform = 'translateX(-' + (currentSlide*100) + '%)';
+    var dots = document.querySelectorAll('#dots span');
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===currentSlide); });
+    document.getElementById('nextBtn').textContent = (currentSlide === totalSlides-1) ? 'Enter Vital Nexus' : 'Next';
+  }
+  function nextSlide(){
+    if(currentSlide < totalSlides-1){ currentSlide++; updateSlidePosition(); }
+    else { finishOnboarding(); }
+  }
+  function goDot(i){ currentSlide = i; updateSlidePosition(); }
+  function skipOnboarding(){ finishOnboarding(); }
+
+  var touchStartX = null;
+  document.getElementById('slidesTrack').addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+  document.getElementById('slidesTrack').addEventListener('touchend', function(e){
+    if(touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(dx < -40 && currentSlide < totalSlides-1){ currentSlide++; updateSlidePosition(); }
+    else if(dx > 40 && currentSlide > 0){ currentSlide--; updateSlidePosition(); }
+    touchStartX = null;
+  });
+
+  function finishOnboarding(){
+    document.getElementById('onboardScreen').style.display = 'none';
+    document.getElementById('welcomeTransitionText').textContent = 'Welcome to Vital Nexus, ' + userName;
+    document.getElementById('welcomeTransition').style.display = 'flex';
+    setTimeout(function(){
+      document.getElementById('welcomeTransition').style.display = 'none';
+      document.getElementById('tabbar').style.display = 'flex';
+      document.getElementById('fabBtn').style.display = 'flex';
+    }, 1700);
+  }
+
+  /* ---------------- tabs ---------------- */
+  /* ---------------- activity history ---------------- */
+  var activityLog = [];
+  function logActivity(icon, text){
+    activityLog.unshift({ icon: icon, text: text, time: new Date() });
+    if(activityLog.length > 50) activityLog.pop();
+  }
+  function renderHistory(){
+    var list = document.getElementById('historyList');
+    var empty = document.getElementById('historyEmpty');
+    list.innerHTML = '';
+    if(activityLog.length === 0){ empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    activityLog.forEach(function(entry){
+      var div = document.createElement('div');
+      div.className = 'card';
+      var timeStr = entry.time.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      div.innerHTML = '<div class="row-between"><b>'+entry.icon+' '+entry.text+'</b><span class="pill pill-teal">'+timeStr+'</span></div>';
+      list.appendChild(div);
+    });
+  }
+
+  /* ---------------- clear data ---------------- */
+  function clearAllData(){
+    document.querySelectorAll('#contactList .contact-row').forEach(function(row, idx){ if(idx > 1) row.remove(); });
+    var medList = document.getElementById('medicalList');
+    while(medList.children.length > 4) medList.removeChild(medList.lastChild);
+    document.getElementById('reminderList').innerHTML = '';
+    Object.keys(reminderTimers).forEach(function(k){ clearTimeout(reminderTimers[k]); });
+    reminderTimers = {}; reminderCount = 0;
+    renderInitialReminders();
+    activityLog = [];
+    renderHistory();
+    refreshContactPriorities();
+    showToast('Your data for this session has been cleared.');
+  }
+
+  /* ---------------- check-in timer ---------------- */
+  var checkinTimer = null;
+  var checkinEndTime = null;
+  function startCheckin(){
+    var mins = parseInt(document.getElementById('checkinMinutes').value, 10);
+    if(!mins || mins < 1){ showToast('Enter how many minutes first.'); return; }
+    checkinEndTime = Date.now() + mins*60000;
+    document.getElementById('checkinStartBtn').parentElement.style.display = 'none';
+    document.getElementById('checkinActive').style.display = 'block';
+    logActivity('⏱️', 'Check-in timer started (' + mins + ' min)');
+    tickCheckin();
+  }
+  function tickCheckin(){
+    if(!checkinEndTime) return;
+    var remaining = checkinEndTime - Date.now();
+    if(remaining <= 0){
+      document.getElementById('checkinTimeLeft').textContent = '0:00';
+      checkinExpired();
+      return;
+    }
+    var m = Math.floor(remaining/60000);
+    var s = Math.floor((remaining%60000)/1000);
+    document.getElementById('checkinTimeLeft').textContent = m+':'+String(s).padStart(2,'0');
+    checkinTimer = setTimeout(tickCheckin, 1000);
+  }
+  function confirmSafe(){
+    clearTimeout(checkinTimer);
+    checkinEndTime = null;
+    document.getElementById('checkinActive').style.display = 'none';
+    document.getElementById('checkinStartBtn').parentElement.style.display = 'flex';
+    document.getElementById('checkinMinutes').value = '';
+    logActivity('✅', "Checked in safe — timer cancelled");
+    showToast("Good to know you're safe.");
+  }
+  function checkinExpired(){
+    document.getElementById('checkinActive').style.display = 'none';
+    document.getElementById('checkinStartBtn').parentElement.style.display = 'flex';
+    logActivity('⚠️', 'Check-in timer expired without confirmation — circle notified');
+    triggerCodewordDirect('silent_circle', "Check-in overdue", "Your check-in timer ran out without you confirming safe, so your circle has been notified with your last known location.");
+  }
+  function triggerCodewordDirect(key, title, desc){
+    document.getElementById('panicOverlay').classList.add('show');
+    var h3 = document.querySelector('#panicOverlay h3');
+    var sub = document.querySelector('#panicOverlay .sub');
+    if(h3) h3.textContent = title;
+    if(sub) sub.textContent = desc;
+    document.querySelectorAll('#steps .step').forEach(function(step){
+      var t = parseInt(step.getAttribute('data-t'),10);
+      stepTimers.push(setTimeout(function(){ step.classList.add('done'); }, t));
+    });
+    notifyCircleDemo({title:title, desc:desc});
+  }
+
+  /* ---------------- environment status ---------------- */
+  function checkEnvironmentStatus(){
+    var banner = document.getElementById('statusBanner');
+    var messages = [];
+    if('onLine' in navigator && !navigator.onLine){
+      messages.push('📶 You appear to be offline right now — your circle may not be reachable until you reconnect.');
+    }
+    function showBanner(){
+      if(messages.length){
+        banner.style.display = 'block';
+        banner.innerHTML = '<p style="margin:0; font-size:11.5px; color:var(--amber);">' + messages.join('<br>') + '</p>';
+      } else {
+        banner.style.display = 'none';
+      }
+    }
+    if(navigator.getBattery){
+      navigator.getBattery().then(function(bat){
+        if(bat.level < 0.15 && !bat.charging){
+          messages.push('🔋 Your battery is at ' + Math.round(bat.level*100) + '% — consider charging before you head out.');
+        }
+        showBanner();
+      }).catch(showBanner);
+    } else {
+      showBanner();
+    }
+  }
+  window.addEventListener('online', checkEnvironmentStatus);
+  window.addEventListener('offline', checkEnvironmentStatus);
+  checkEnvironmentStatus();
+
+  function showTab(name){
+    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.getElementById('view-'+name).classList.add('active');
+    var tabBtn = document.querySelector('.tab[data-tab="'+name+'"]');
+    if(tabBtn) tabBtn.classList.add('active');
+    document.getElementById('chatInputRow').style.display = (name==='companion') ? 'flex' : 'none';
+    document.getElementById('fabBtn').style.display = (name==='companion') ? 'none' : 'flex';
+    if(name === 'history') renderHistory();
+  }
+
+  /* ---------------- clock ---------------- */
+  function tick(){
+    var d = new Date();
+    var h = d.getHours()%12 || 12;
+    var m = d.getMinutes().toString().padStart(2,'0');
+    var s = h+':'+m;
+    document.getElementById('clock').textContent = s;
+    var lc = document.getElementById('lockClock');
+    if(lc) lc.textContent = s;
+  }
+  tick(); setInterval(tick, 15000);
+
+  /* ---------------- toast ---------------- */
+  function showToast(msg, ms){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function(){ t.classList.remove('show'); }, ms||3200);
+  }
+
+  /* ---------------- SOS hold-to-activate ---------------- */
+  var sosBtn = document.getElementById('sosBtn');
+  var holdTimer = null;
+  function startHold(e){ e.preventDefault(); sosBtn.classList.add('filling'); holdTimer = setTimeout(function(){ openPanic(); resetSos(); }, 1750); }
+  function cancelHold(){ clearTimeout(holdTimer); resetSos(); }
+  function resetSos(){ sosBtn.classList.remove('filling'); void sosBtn.offsetWidth; }
+  sosBtn.addEventListener('mousedown', startHold);
+  sosBtn.addEventListener('touchstart', startHold, {passive:false});
+  sosBtn.addEventListener('mouseup', cancelHold);
+  sosBtn.addEventListener('mouseleave', cancelHold);
+  sosBtn.addEventListener('touchend', cancelHold);
+
+  var stepTimers = [];
+  function openPanic(){
+    document.getElementById('panicOverlay').classList.add('show');
+    logActivity('🆘', 'SOS held and activated');
+    document.querySelectorAll('#steps .step').forEach(function(step){
+      var t = parseInt(step.getAttribute('data-t'),10);
+      stepTimers.push(setTimeout(function(){ step.classList.add('done'); }, t));
+    });
+  }
+  function closePanic(){
+    document.getElementById('panicOverlay').classList.remove('show');
+    stepTimers.forEach(clearTimeout); stepTimers=[];
+    document.querySelectorAll('#steps .step').forEach(function(s){ s.classList.remove('done'); });
+  }
+
+  /* ---------------- calm / breathing ---------------- */
+  var breathTimer = null;
+  function openCalm(){
+    document.getElementById('calmOverlay').classList.add('show');
+    var ring = document.getElementById('breathRing');
+    var core = document.getElementById('breathCore');
+    var phase = 0;
+    var steps = [ {cls:'inhale', label:'Breathe in…'}, {cls:'', label:'Hold…'}, {cls:'exhale', label:'Breathe out…'} ];
+    function next(){
+      ring.className = 'breath-ring ' + steps[phase].cls;
+      core.textContent = steps[phase].label;
+      phase = (phase+1) % steps.length;
+      breathTimer = setTimeout(next, 4000);
+    }
+    next();
+    if(voiceOn()) speak("You're safe. Let's breathe together. In for four, hold, and out for four.");
+  }
+  function closeCalm(){
+    document.getElementById('calmOverlay').classList.remove('show');
+    clearTimeout(breathTimer);
+  }
+
+  /* ---------------- reminders ---------------- */
+  var reminderTimers = {};
+  var reminderCount = 0;
+  function renderInitialReminders(){
+    addReminderCard('med', 'Metformin 500mg', '08:00', false);
+    addReminderCard('appt', 'Cardiology check-in', '16:30', false);
+  }
+  function addReminder(){
+    var type = document.getElementById('remType').value;
+    var label = document.getElementById('remLabel').value.trim();
+    var time = document.getElementById('remTime').value;
+    if(!label || !time){ showToast('Add a label and a time first.'); return; }
+    addReminderCard(type, label, time, true);
+    document.getElementById('remLabel').value='';
+  }
+  function addReminderCard(type, label, time, schedule){
+    reminderCount++;
+    var id = 'rem'+reminderCount;
+    var div = document.createElement('div');
+    div.className = 'sticker' + (type==='appt' ? ' appt' : '');
+    div.id = id;
+    var testLink = document.createElement('span');
+    testLink.className = 'test-link';
+    testLink.textContent = 'test now';
+    testLink.onclick = function(){ fireReminder(id,label); };
+    var b = document.createElement('b'); b.textContent = label;
+    var span = document.createElement('span'); span.className='time'; span.textContent = (type==='appt'?'Appointment':'Medicine') + ' · ' + formatTime(time);
+    div.appendChild(testLink); div.appendChild(b); div.appendChild(span);
+    document.getElementById('reminderList').prepend(div);
+    document.getElementById('reminderCountLabel').textContent = document.querySelectorAll('#reminderList .sticker').length + ' scheduled';
+    if(schedule){
+      requestNotifyPermission();
+      var ms = msUntil(time);
+      reminderTimers[id] = setTimeout(function(){ fireReminder(id,label); }, ms);
+      showToast('Reminder set for ' + formatTime(time) + " — you'll be notified.");
+    }
+  }
+  function fireReminder(id,label){
+    showToast('⏰ ' + label + ' — time now.', 4500);
+    logActivity('💊', 'Reminder: ' + label);
+    if('Notification' in window && Notification.permission === 'granted'){
+      try{ new Notification('Vital Nexus reminder', {body: label}); }catch(e){}
+    }
+    if(voiceOn()) speak('Reminder: ' + label);
+  }
+  function requestNotifyPermission(){
+    if('Notification' in window && Notification.permission === 'default'){ Notification.requestPermission(); }
+  }
+  function msUntil(hhmm){
+    var parts = hhmm.split(':').map(Number);
+    var now = new Date();
+    var target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), parts[0], parts[1], 0);
+    if(target <= now) target.setDate(target.getDate()+1);
+    return target - now;
+  }
+  function formatTime(hhmm){
+    var parts = hhmm.split(':').map(Number);
+    var hh = parts[0]%12 || 12;
+    var ap = parts[0]>=12 ? 'PM' : 'AM';
+    return hh+':'+String(parts[1]).padStart(2,'0')+' '+ap;
+  }
+  renderInitialReminders();
+
+  /* ---------------- contacts ---------------- */
+  var contactCounter = 0;
+  function addContact(){
+    var name = document.getElementById('newContactName').value.trim();
+    var phone = document.getElementById('newContactPhone').value.trim();
+    if(!name || !phone){ showToast('Add both a name and a phone number.'); return; }
+    contactCounter++;
+    var row = document.createElement('div');
+    row.className = 'contact-row';
+    var initial = name.charAt(0).toUpperCase();
+    var cleanNum = phone.replace(/[^0-9+]/g,'');
+    var telHref = 'tel:' + cleanNum;
+    row.innerHTML = '<div class="avatar">'+initial+'</div><div class="info"><b></b><span>Added by you · real number</span></div><a class="icon-btn" title="Call"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6A2 2 0 0 1 22 16.9Z"/></svg></a>';
+    row.querySelector('b').textContent = name;
+    var link = row.querySelector('a');
+    link.href = telHref;
+    link.onclick = function(){ callNumber(cleanNum, name); return true; };
+    document.getElementById('contactList').appendChild(row);
+    document.getElementById('newContactName').value='';
+    document.getElementById('newContactPhone').value='';
+    showToast(name + ' added — the call button dials your real number.');
+  }
+  function saveHelpline(){
+    var num = document.getElementById('helplineInput').value.trim();
+    if(!num){ showToast('Enter a number first.'); return; }
+    var card = document.getElementById('helplineCard');
+    var cleanHelp = num.replace(/[^0-9+]/g,'');
+    var telHref = 'tel:' + cleanHelp;
+    card.innerHTML = '<div class="row-between"><div><b></b><p>Your saved local emergency number.</p></div><a class="icon-btn" title="Call"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6A2 2 0 0 1 22 16.9Z"/></svg></a></div>';
+    card.querySelector('b').textContent = num;
+    card.querySelector('a').href = telHref;
+    card.querySelector('a').onclick = function(){ callNumber(cleanHelp, 'your emergency line'); return true; };
+    savedHelplineNumber = cleanHelp;
+    document.getElementById('helplineInput').value='';
+    showToast('Saved — the call button now dials this number directly.');
+  }
+
+  /* ---------------- editable medical profile ---------------- */
+  var medCounter = 4;
+  function addMedicalItem(){
+    var type = document.getElementById('medType').value;
+    var name = document.getElementById('medName').value.trim();
+    var note = document.getElementById('medNote').value.trim();
+    if(!name){ showToast('Enter a name first.'); return; }
+    medCounter++;
+    var id = 'm'+medCounter;
+    var pillClass = type === 'Allergy' ? 'pill-coral' : (type === 'Medication' ? 'pill-violet' : 'pill-teal');
+    var div = document.createElement('div');
+    div.className = 'card';
+    div.setAttribute('data-mid', id);
+    div.innerHTML = '<div class="row-between"><b></b><span class="pill '+pillClass+'">'+type+'</span></div><p></p><span class="test-link">remove</span>';
+    div.querySelector('b').textContent = name;
+    div.querySelector('p').textContent = note || 'No additional note.';
+    div.querySelector('.test-link').onclick = function(){ removeMedicalItem(id); };
+    document.getElementById('medicalList').appendChild(div);
+    document.getElementById('medName').value='';
+    document.getElementById('medNote').value='';
+    showToast(name + ' added to your medical profile.');
+  }
+  function removeMedicalItem(id){
+    var el = document.querySelector('[data-mid="'+id+'"]');
+    if(el) el.remove();
+  }
+
+  /* ---------------- contact priority ordering ---------------- */
+  function refreshContactPriorities(){
+    var rows = document.querySelectorAll('#contactList .contact-row');
+    rows.forEach(function(row, idx){
+      var pill = row.querySelector('.priority-pill');
+      if(!pill){
+        pill = document.createElement('span');
+        pill.className = 'pill pill-teal priority-pill';
+        pill.style.marginRight = '6px';
+        var iconBtn = row.querySelector('.icon-btn');
+        row.insertBefore(pill, iconBtn);
+      }
+      pill.textContent = '#' + (idx+1);
+      if(!row.querySelector('.reorder-btns')){
+        var wrap = document.createElement('div');
+        wrap.className = 'reorder-btns';
+        wrap.style.cssText = 'display:flex;flex-direction:column;gap:2px;margin-right:4px;';
+        var up = document.createElement('button');
+        up.textContent = '▲';
+        up.style.cssText = 'background:none;border:none;color:var(--text-faint);cursor:pointer;font-size:9px;padding:0;';
+        var down = document.createElement('button');
+        down.textContent = '▼';
+        down.style.cssText = up.style.cssText;
+        up.onclick = function(){ moveContact(row,-1); };
+        down.onclick = function(){ moveContact(row,1); };
+        wrap.appendChild(up); wrap.appendChild(down);
+        row.insertBefore(wrap, row.firstChild);
+      }
+    });
+    var firstB = document.querySelector('#contactList .contact-row .info b');
+    if(firstB) primaryContact.name = firstB.textContent;
+  }
+  function moveContact(row, dir){
+    var list = document.getElementById('contactList');
+    var rows = Array.prototype.slice.call(list.querySelectorAll('.contact-row'));
+    var idx = rows.indexOf(row);
+    var newIdx = idx + dir;
+    if(newIdx < 0 || newIdx >= rows.length) return;
+    if(dir < 0) list.insertBefore(row, rows[newIdx]);
+    else list.insertBefore(rows[newIdx], row);
+    refreshContactPriorities();
+    showToast(primaryContact.name + ' is now contacted first.');
+  }
+  refreshContactPriorities();
+
+  /* ---------------- codewords ---------------- */
+  var codewordDefs = {
+    silent_circle:   { phrase:"did you feed the cat",        title:"Silent alert sent",        desc:"Your circle has been notified with your live location. Nothing on your screen changed." },
+    duress_signal:   { phrase:"is mom's soup ready",          title:"Duress signal recognised",  desc:"Your primary contact has been quietly flagged that this call is not safe — they'll keep talking normally and alert others." },
+    priority_police: { phrase:"grab my red umbrella",         title:"Priority alert — skipping to responders", desc:"Your circle is skipped. Emergency responders are notified directly with your location, no confirmation step." },
+    follow_watch:    { phrase:"dentist tomorrow",              title:"Being-followed mode on",    desc:"Your live location is now shared continuously and your nearest contact has been quietly asked to come to you." },
+    trip_watch:      { phrase:"wifi password",                 title:"Trip watch started",        desc:"Your circle can now see this ride's live location continuously until you check in safe." },
+    home_alert:      { phrase:"has the plumber come by",       title:"Home alert sent",           desc:"Your circle and nearest contact were notified with your home address and current status — high priority." }
+  };
+
+  function checkCodewordText(text){
+    var lower = text.toLowerCase();
+    for(var key in codewordDefs){
+      if(lower.indexOf(codewordDefs[key].phrase) !== -1) return key;
+    }
+    return null;
+  }
+
+  function submitQuickNote(){
+    var input = document.getElementById('quickNote');
+    var text = input.value.trim();
+    input.value = '';
+    if(!text){ return; }
+    var matched = checkCodewordText(text);
+    if(matched){
+      triggerCodeword(matched);
+    } else {
+      showToast('Note saved.', 1400); // stays deliberately boring — this box never looks alarming
+    }
+  }
+
+  function tryCodeword(key){ triggerCodeword(key); }
+
+  function triggerCodeword(key){
+    var def = codewordDefs[key];
+    if(!def) return;
+    document.getElementById('panicOverlay').classList.add('show');
+    logActivity('🔑', 'Codeword triggered — ' + def.title);
+    var h3 = document.querySelector('#panicOverlay h3');
+    var sub = document.querySelector('#panicOverlay .sub');
+    if(h3) h3.textContent = def.title;
+    if(sub) sub.textContent = def.desc;
+    document.querySelectorAll('#steps .step').forEach(function(step){
+      var t = parseInt(step.getAttribute('data-t'),10);
+      stepTimers.push(setTimeout(function(){ step.classList.add('done'); }, t));
+    });
+    notifyCircleDemo(def);
+  }
+
+  function notifyCircleDemo(def){
+    if('Notification' in window){
+      if(Notification.permission === 'default'){ Notification.requestPermission(); }
+      if(Notification.permission === 'granted'){
+        try{
+          new Notification('Demo: what ' + primaryContact.name + ' would receive', { body: def.desc + ' (Real delivery to another phone needs a backend SMS/push service — this shows the message content this device would trigger.)' });
+        }catch(e){}
+      }
+    }
+  }
+
+  /* ---------------- live location / map ---------------- */
+  function shareLiveLocation(){
+    if(!navigator.geolocation){ showToast("Location isn't available in this preview environment."); return; }
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var lat = pos.coords.latitude.toFixed(5);
+      var lng = pos.coords.longitude.toFixed(5);
+      document.getElementById('mapCoords').textContent = 'Live · ' + lat + ', ' + lng;
+      var link = document.getElementById('mapOpenLink');
+      link.href = 'https://www.google.com/maps?q=' + lat + ',' + lng;
+      link.onclick = null;
+      link.target = '_blank';
+      showToast('Live location shared with your circle.');
+    }, function(err){
+      var msg;
+      if(err.code === 1){ msg = "Permission denied for this exact page. If you already allowed location somewhere else, it doesn't carry over — check Chrome's Site settings for this page's address specifically, or open this link as its own tab rather than inside a preview."; }
+      else if(err.code === 2){ msg = "Your device couldn't determine a position right now — try again with a clearer GPS signal (outdoors helps)."; }
+      else if(err.code === 3){ msg = "That took too long and timed out — try again."; }
+      else { msg = "Location couldn't be read in this environment."; }
+      showToast(msg, 6000);
+    }, {enableHighAccuracy:true, timeout:8000});
+  }
+
+  /* ---------------- medical knowledge library (varied phrasing) ---------------- */
+  var library = {
+    diabetes: {
+      q:'Tell me about diabetes',
+      a:[ "Diabetes needs steady blood sugar and, for type 1, insulin.", "With type 1 diabetes, the main thing is keeping blood sugar from swinging too far either way.", "Diabetes care here comes down to watching sugar levels closely and knowing the signs of a low." ],
+      guide:[ "If they seem confused, shaky, or sweaty, check blood sugar. A fast-acting sugar like juice or glucose tabs helps with lows — skip insulin if they're already low or unconscious.", "For a low: something sugary fast, then recheck in 15 minutes. Never give insulin during a low or if unresponsive.", "Watch for shakiness, confusion, or cold sweat — those usually mean low blood sugar. Fast sugar first, insulin only when levels are actually high." ],
+      precaution:[ "Always know where the fast-acting glucose and glucagon kit are kept.", "Keep something sugary within reach at all times, and make sure whoever's nearby knows where it is.", "A glucagon kit should be somewhere obvious — not buried in a bag no one else can find." ]
+    },
+    asthma: {
+      q:'Tell me about asthma',
+      a:[ "This is mild asthma, usually set off by cold air or dust.", "The asthma here tends to flare with cold air and dust more than anything else.", "Asthma-wise, it's a manageable, mild case — triggers are cold air and dust." ],
+      guide:[ "Sit upright, use the reliever inhaler (usually the blue one), 4 puffs, wait a minute, repeat if it's not settling.", "Get them sitting up straight, not lying down, and work through the inhaler — a few puffs, pause, more if needed.", "Upright posture first, then the reliever inhaler in small rounds rather than all at once." ],
+      precaution:[ "If lips turn blue, breathing doesn't ease after about 10 puffs, or they can't get a full sentence out — call emergency services right away.", "Blue lips, no improvement after repeated puffs, or breathlessness that stops them talking — that's the line where this becomes an emergency call.", "Don't wait it out if speaking in full sentences becomes impossible — that's the signal to call for help." ]
+    },
+    epilepsy: {
+      q:'What about a seizure?',
+      a:[ "Here's what matters during a seizure.", "For a seizure, the priority is safety, not stopping it.", "A seizure looks alarming but most of what helps is simple." ],
+      guide:[ "Clear hard objects out of the way, cushion the head, and once the shaking stops, turn them onto their side. Time how long it lasts.", "Protect the head, give them space, and roll them onto their side as soon as the movement eases. Keep an eye on the clock.", "Keep the area clear, don't restrain them, and once it's over, the recovery position on their side is what matters most." ],
+      precaution:[ "Never put anything in their mouth. Call emergency services if it passes five minutes, or if a second seizure follows right after.", "Nothing goes in the mouth, ever. Past the five-minute mark, or a repeat seizure, means it's time to call for help.", "Skip the old advice about the mouth — it's not needed and can hurt them. Call for help past five minutes." ]
+    },
+    heart: {
+      q:'What about chest pain?',
+      a:[ "Chest pain is one to take seriously every time.", "For chest pain, better to overreact than wait and see.", "Any chest pain here gets treated as potentially cardiac until proven otherwise." ],
+      guide:[ "Get them sitting down, keep things calm, loosen anything tight around the chest. Pain spreading to the arm or jaw, or shortness of breath, points toward the heart.", "Sitting, not lying flat, clothing loosened, and stay with them. Arm or jaw pain alongside it raises the concern significantly.", "Calm sitting position, loosen restrictive clothing, and watch for pain radiating outward — that combination matters." ],
+      precaution:[ "Chest pain lasting more than a few minutes needs an emergency call — don't wait to see if it passes.", "This isn't one to sit on. A few unchanged minutes is enough reason to call for help.", "Waiting it out is the wrong move here — call sooner rather than later." ]
+    },
+    allergy: {
+      q:'Allergic reaction?',
+      a:[ "There's a known allergy to penicillin and peanuts.", "Both penicillin and peanuts are confirmed allergies to watch for.", "The allergy profile here flags penicillin and peanuts specifically." ],
+      guide:[ "For something mild, an antihistamine is usually enough. If the face or throat swells, breathing gets hard, or hives spread fast, use the epinephrine auto-injector in the outer thigh right away, then call for help.", "Mild reactions: antihistamine. Anything with swelling near the airway or fast-spreading hives is epinephrine first, questions after.", "Judge by how fast it's spreading and whether breathing is affected — that decides between antihistamine and the auto-injector." ],
+      precaution:[ "Epinephrine comes first, questions later — a second dose can follow after 5 to 15 minutes if things haven't improved.", "Don't hesitate on the auto-injector if breathing is involved. A second dose is fine if there's no change shortly after.", "Speed matters more than certainty here — using it and being wrong is far safer than waiting too long." ]
+    },
+    bleeding: {
+      q:'Bleeding or a wound?',
+      a:[ "For bleeding, pressure is almost always the first move.", "Wound care here is mostly about steady, direct pressure.", "Bleeding control comes down to pressure, elevation, and patience." ],
+      guide:[ "Press down firmly with a clean cloth, and raise the area above heart level if that's possible. Don't pull out anything embedded — pad around it instead.", "Direct, steady pressure with something clean, limb raised if it helps. Anything stuck in the wound stays put — build padding around it.", "Firm pressure, held continuously rather than checked repeatedly, tends to work better than lifting to peek." ],
+      precaution:[ "If it hasn't slowed after about ten minutes of pressure, or it's a deep wound, that's an emergency call.", "Ten minutes of unrelenting pressure with no change, or clear depth to the wound, means it's time to call for help.", "Don't keep trying alone past the ten-minute mark — that's the cue to get real help involved." ]
+    },
+    choking: {
+      q:'Someone is choking',
+      a:[ "Choking response depends on whether they can still cough.", "For choking, the first check is simple: can they still make a sound?", "Choking care starts with figuring out how blocked the airway really is." ],
+      guide:[ "If they can cough or speak, encourage coughing — it's doing the work. If they can't breathe, cough, or speak: five back blows between the shoulder blades, then five abdominal thrusts, alternating between the two.", "Coughing still working means don't interfere — let it happen. Total blockage means back blows and abdominal thrusts, switching between them.", "A partial block: encourage the cough. A full block, no sound at all: alternate back blows and abdominal thrusts." ],
+      precaution:[ "If the blockage doesn't clear quickly, or they lose consciousness, call emergency services immediately.", "Losing consciousness or no progress after a few rounds means it's time to call for help without delay.", "Don't keep repeating the same steps for too long without result — escalate to a call quickly." ]
+    },
+    anxiety: {
+      q:'I feel anxious / panic attack',
+      a:[ "This will pass — panic attacks always do, even though they don't feel like it.", "What you're feeling has a name, and it ends. That's worth holding onto.", "This is uncomfortable but not dangerous, even though your body is convinced otherwise." ],
+      guide:[ "Try box breathing — in for four, hold for four, out for four. Naming five things you can see around you often helps bring things back into focus.", "Slow the breath down deliberately: four counts in, four held, four out. Grounding through your senses — sight, sound, touch — can help too.", "Breathe on a slow count, and try naming a few things you can see, hear, or touch right now. It pulls attention out of the spiral." ],
+      precaution:[ "If chest pain, real breathlessness, or fainting feel new or different from past attacks, treat it as medical and get help.", "New or different symptoms — real breathlessness, actual chest pain — are worth treating as physical rather than assuming it's 'just' anxiety.", "Trust a change in pattern. If this attack feels different in the body, don't just wait it out." ]
+    },
+    fever: {
+      q:'I think I have a fever',
+      a:[ "A fever is usually the body doing its job, fighting something off.", "Most fevers on their own aren't the emergency people assume they are." ],
+      guide:[ "Rest, fluids, and a fever reducer like paracetamol if it's uncomfortable. A lukewarm cloth on the forehead can help too.", "Keep them hydrated and cool, not bundled up — light clothing, sips of water often, and rest." ],
+      precaution:[ "A temperature above 39.4°C (103°F), a fever lasting more than three days, or a stiff neck and confusion alongside it — call a doctor.", "In infants under three months, any fever at all is worth calling a doctor about straight away." ]
+    },
+    headache: {
+      q:'I have a headache',
+      a:[ "Headaches are usually harmless, but worth paying attention to how it feels.", "Most headaches settle with rest, fluid, and a bit of quiet." ],
+      guide:[ "Water first — dehydration is a common cause. Rest somewhere dim and quiet, and a mild pain reliever if needed.", "Check when they last drank water and ate. A dark, quiet room and some paracetamol usually helps within an hour or two." ],
+      precaution:[ "A headache described as 'the worst of my life', or one with confusion, slurred speech, or vision changes, needs emergency care immediately.", "Sudden and severe, unlike anything before, especially with numbness or trouble speaking — treat that as an emergency, not a normal headache." ]
+    },
+    stomach: {
+      q:'My stomach hurts',
+      a:[ "Stomach upsets are usually short-lived, but worth watching for a day.", "Most stomach aches settle on their own within a day or so." ],
+      guide:[ "Small sips of water or an oral rehydration drink, plain food once nausea eases, and rest. Avoid dairy and heavy meals for now.", "Bland food, small amounts often rather than one big meal, and plenty of fluids to replace anything lost." ],
+      precaution:[ "Severe pain that's constant and worsening, especially on the lower right side, blood in vomit or stool, or a high fever alongside it — that needs medical attention promptly.", "Vomiting that won't stop for more than a day, or any sign of dehydration like dizziness and dark urine, is worth calling a doctor about." ]
+    },
+    cough: {
+      q:'I have a cough or a cold',
+      branch: true
+    },
+    joint: {
+      q:'My joints hurt',
+      a:[ "Joint pain can come from overuse, arthritis, or just weather changes for some people.", "Achy joints are common and usually not urgent, but the pattern matters." ],
+      guide:[ "Rest the joint, ice for the first day or two if it's swollen, then gentle movement so it doesn't stiffen up. An anti-inflammatory can help if there's nothing stopping them taking one.", "Alternate rest with light stretching — total stillness often makes stiff joints worse. Warmth helps ongoing ache, ice helps fresh swelling." ],
+      precaution:[ "A joint that's hot, very swollen, and painful to touch — especially with a fever — needs medical attention, it could be an infection.", "Sudden joint pain after an injury with visible deformity or inability to bear weight needs urgent care, not home rest." ]
+    },
+    arm: {
+      q:'My arm hurts',
+      a:[ "Arm pain is usually muscular or from overuse, but worth ruling out anything more serious.", "Most arm pain traces back to strain, sleeping position, or repetitive movement." ],
+      guide:[ "Rest it, ice for swelling in the first day, and gentle stretching once the sharp pain eases. Over-the-counter pain relief can help in the meantime.", "Support the arm in a comfortable position, avoid the movement that triggers it, and give it a few days before assuming it's serious." ],
+      precaution:[ "Left arm pain with chest tightness, sweating, or shortness of breath is treated as a possible cardiac emergency — call immediately, don't wait.", "Numbness, a cold or pale hand, or an obviously deformed arm after a fall needs urgent medical attention." ]
+    },
+    back: {
+      q:'My back hurts',
+      a:[ "Back pain is extremely common and usually mechanical — muscle strain more often than anything structural.", "Most back pain settles within a couple of weeks with simple care." ],
+      guide:[ "Keep gently moving rather than staying in bed all day — short walks help more than total rest. Heat often eases muscular back pain better than ice.", "Alternate sitting, standing, and light walking. A firm-ish surface to lie on and a pillow under the knees can ease pressure." ],
+      precaution:[ "Loss of bladder or bowel control, numbness in the groin, or weakness in both legs alongside back pain is a medical emergency — call immediately.", "Back pain after a significant fall or accident, or with fever and unexplained weight loss, needs prompt medical review rather than home care." ]
+    },
+    muscle: {
+      q:'I have muscle pain or cramps',
+      a:[ "Muscle cramps are usually about dehydration, overuse, or low salt/mineral levels.", "Sore or cramping muscles are common after activity or during heat." ],
+      guide:[ "Gently stretch and massage the cramping muscle, and rehydrate — water with a pinch of salt or an electrolyte drink helps more than plain water alone.", "Stop the activity that triggered it, stretch slowly, and drink something with electrolytes rather than just water." ],
+      precaution:[ "Muscle pain with dark urine, or pain that's severe and doesn't match any activity done, can point to something more serious — worth a doctor's check.", "Cramping alongside chest pain or breathlessness should be treated as potentially cardiac, not just muscular." ]
+    },
+    neck: {
+      q:'My neck hurts',
+      a:[ "Neck pain is often from posture, sleeping position, or muscle strain.", "Most neck stiffness clears within a few days with simple movement and rest." ],
+      guide:[ "Gentle range-of-motion stretches, a warm compress, and avoiding hunching over a phone or screen for long stretches.", "Check the pillow and sleeping position first — that's the most common cause. Heat and slow neck rolls usually help." ],
+      precaution:[ "A stiff neck with a high fever, headache, and sensitivity to light needs urgent medical attention — that combination can signal meningitis.", "Neck pain after a fall, car accident, or dive into water should be treated cautiously — avoid moving the neck and seek medical care." ]
+    },
+    leg: {
+      q:'My leg hurts or is cramping',
+      a:[ "Leg pain is usually muscular, from cramping, overuse, or standing too long.", "Cramps and aches in the legs are common, especially at night or after exercise." ],
+      guide:[ "Stretch the calf gently, walk it out slowly, and rehydrate. A warm bath can ease lingering soreness.", "Elevate the leg if it's swollen, and stretch gently rather than forcing through sharp pain." ],
+      precaution:[ "One leg that's suddenly swollen, red, warm, and painful — especially after a long flight or being immobile — needs urgent care; it could be a blood clot.", "Leg pain with numbness, a cold foot, or an inability to move it after an injury needs prompt medical attention." ]
+    },
+    tooth: {
+      q:'I have a toothache',
+      a:[ "Toothaches usually mean decay, a cracked tooth, or gum irritation.", "Tooth pain is worth taking seriously since it rarely resolves fully on its own." ],
+      guide:[ "Rinse with warm salt water, take a standard pain reliever, and avoid very hot, cold, or sugary food until it's looked at.", "Clove oil dabbed near the area can numb it temporarily. A cold compress on the cheek helps if there's swelling." ],
+      precaution:[ "Facial swelling, fever, or pain that's spreading toward the jaw or neck needs urgent dental or medical care — it can signal a spreading infection.", "Don't ignore a toothache that's getting worse over days — untreated dental infections can become serious." ]
+    },
+    ear: {
+      q:'My ear hurts',
+      a:[ "Ear pain is often from infection, pressure changes, or wax buildup.", "Earaches are common, especially after a cold or swimming." ],
+      guide:[ "A warm compress against the ear can ease discomfort. Avoid inserting anything into the ear canal.", "Over-the-counter pain relief helps in the meantime, and keeping the ear dry if there's any drainage." ],
+      precaution:[ "Severe pain with fever, fluid draining from the ear, or sudden hearing loss needs a doctor's review, ideally within a day.", "Ear pain after a head injury, or with dizziness and facial weakness, needs urgent medical attention." ]
+    },
+    depression: {
+      q:'Tell me about depression',
+      a:[ "Depression usually builds from a mix of biology, life stress, and sometimes family history — it isn't a character flaw.", "Depression is a real medical condition, not just a rough patch that should pass on its own." ],
+      guide:[ "Keeping some routine, staying connected to people even in small ways, regular sleep, and gentle movement all genuinely help alongside proper treatment. Therapies like CBT and, when appropriate, antidepressants prescribed by a doctor are the main paths forward.", "Small consistent things matter — a regular sleep schedule, some daylight, staying in touch with someone. Professional support, whether therapy or medication a doctor prescribes, is usually what makes the real difference." ],
+      precaution:[ "If someone feels unable to stay safe or is in immediate danger, a trusted adult and emergency medical support should be contacted right away, without waiting.", "Any sign that someone can't guarantee their own safety right now is urgent — that's a moment to involve another person and emergency services immediately, not to handle alone." ]
+    },
+    anxietydisorder: {
+      q:'Tell me about anxiety disorders',
+      a:[ "Anxiety disorders can come from genetics, biology, and prolonged stress layered together.", "This is more than everyday worry — it's excessive, persistent, and affects daily functioning." ],
+      guide:[ "Regular sleep, physical activity, relaxation techniques, staying connected to supportive people, and cutting back on caffeine can genuinely ease symptoms. CBT is a common and effective therapy, and doctors sometimes prescribe SSRIs when appropriate.", "Consistency helps more than any single fix — sleep, movement, and support from people around them, alongside professional therapy or medication if a doctor recommends it." ],
+      precaution:[ "Severe symptoms that cause collapse, serious breathing difficulty, loss of consciousness, or any immediate safety concern need urgent help right away.", "Don't wait out symptoms that look physically severe — those need urgent assistance, not just reassurance." ]
+    },
+    panicdisorder: {
+      q:'Tell me about panic disorder',
+      a:[ "Panic disorder means repeated, unexpected panic attacks — intense fear that comes on fast, often for no clear reason.", "This is different from a one-off panic attack — it's a pattern of them happening unexpectedly." ],
+      guide:[ "Regular sleep, stress management, relaxation techniques, and avoiding excess caffeine can reduce how often attacks happen. CBT is a commonly used and effective treatment, sometimes alongside SSRIs a doctor prescribes.", "Between attacks, routine and stress reduction help lower the frequency. Therapy — CBT especially — tends to be the most effective long-term approach." ],
+      precaution:[ "New or severe chest pain, serious breathing difficulty, fainting, or anything that could be a physical emergency should be treated as an emergency, not assumed to just be a panic attack.", "Don't automatically assume it's 'just panic' if something feels different or more severe than usual — treat new physical symptoms seriously and get it checked." ]
+    },
+    ocd: {
+      q:'Tell me about OCD',
+      a:[ "OCD involves unwanted, recurring thoughts (obsessions) and repetitive behaviours or mental rituals (compulsions) done to ease them.", "The exact cause isn't fully understood, but genetic, neurological, and environmental factors likely play a role." ],
+      guide:[ "Recognising the pattern early and managing stress can stop it from taking over daily life. ERP — a specific form of CBT — is the most established treatment, and doctors may prescribe SSRIs alongside it when appropriate.", "The compulsions feel like they reduce anxiety short-term but usually reinforce it long-term — that's exactly what exposure and response prevention therapy is built to address." ],
+      precaution:[ "Immediate assistance is needed if the distress becomes severe enough to create a safety concern or stops someone from functioning safely day to day.", "If rituals or distress escalate to the point someone can't function or feels unsafe, that's the point to get help urgently rather than wait it out." ]
+    },
+    ptsd: {
+      q:'Tell me about PTSD',
+      a:[ "PTSD can develop after living through or witnessing something traumatic.", "This isn't about being 'unable to move on' — it's a real response to trauma that needs proper support." ],
+      guide:[ "Unwanted memories, nightmares, avoiding reminders, feeling constantly on edge, and sleep trouble are common. Seeking support early, keeping routines, and staying connected to trusted people all help alongside trauma-focused therapy.", "Trauma-focused CBT is a commonly used, effective treatment, and medication may be added when a doctor sees it as appropriate. Staying connected to people you trust matters as much as any formal treatment." ],
+      precaution:[ "If someone is in immediate danger, severely disoriented, or unable to keep themselves safe, a trusted adult and emergency services should be contacted right away.", "Disorientation or an inability to stay safe isn't something to monitor from a distance — get another person and emergency support involved immediately." ]
+    },
+    socialanxiety: {
+      q:'Tell me about social anxiety',
+      a:[ "Social anxiety disorder is an intense fear of being judged or embarrassed in social situations — more than just shyness.", "This comes from a mix of genetics, biology, and often difficult past social experiences." ],
+      guide:[ "Supportive relationships, gradual exposure to feared situations with professional guidance, and healthy routines all help over time. CBT is commonly used, and doctors may prescribe SSRIs when appropriate.", "Avoidance tends to make it stronger, so gentle, guided exposure — ideally with a therapist's support — is usually more effective than avoiding triggers entirely." ],
+      precaution:[ "Social anxiety on its own usually isn't a medical emergency, but urgent help should be sought if there's an immediate safety concern or severe physical symptoms alongside it.", "If physical symptoms become severe or there's any safety concern, treat that part as urgent even though social anxiety itself rarely is." ]
+    },
+    flu: {
+      q:'Do I have the flu?',
+      a:[ "Flu spreads through coughing, sneezing, and talking near others, and tends to hit harder than a regular cold.", "Influenza usually comes with more body-wide symptoms than a typical cold — it's not subtle." ],
+      guide:[ "Rest, fluids, and paracetamol for the fever and aches. Cover coughs, wash hands often, and keep some distance from others while contagious.", "Staying home, resting properly, and treating the fever and aches directly usually gets through it in about a week. A doctor may prescribe an antiviral for certain higher-risk patients." ],
+      precaution:[ "Difficulty breathing, persistent chest pain, severe weakness, confusion, or loss of consciousness needs urgent medical attention.", "Don't wait through breathing trouble or confusion with flu — those symptoms mean it's time to get seen urgently." ]
+    },
+    coldvirus: {
+      q:'I think I just have a cold',
+      a:[ "The common cold usually comes from a rhinovirus and spreads through droplets or touching contaminated surfaces.", "A regular cold tends to stay milder and more localized to the nose and throat than flu does." ],
+      guide:[ "Rest, fluids, and symptom relief as needed — antibiotics won't help since it's viral. Frequent handwashing helps stop it spreading to others too.", "Most colds clear on their own within a week to ten days with just rest and fluids." ],
+      precaution:[ "Significant difficulty breathing, bluish or grey lips or skin, unusual drowsiness, or symptoms sharply worsening need medical assessment.", "A 'cold' that's actually getting worse rather than better after several days is worth a second look." ]
+    },
+    malaria: {
+      q:'Could this be malaria?',
+      a:[ "Malaria comes from Plasmodium parasites spread by infected mosquito bites, and symptoms often come in episodes.", "This is spread specifically by Anopheles mosquitoes — travel or living history in an affected area matters here." ],
+      guide:[ "Fever, chills, sweating, headache, and nausea in cycles are the classic pattern. Insect repellent, mosquito nets, and protective clothing help prevent it in the first place.", "Treatment depends on the parasite type and local resistance patterns, so it needs a doctor's diagnosis — artemisinin-based combination therapy is common for the most frequent type." ],
+      precaution:[ "Confusion, seizures, severe weakness, breathing difficulty, or loss of consciousness can mean severe malaria — that's an immediate medical emergency.", "Don't treat malaria at home past the point of severe symptoms — confusion or seizures mean it's time for urgent care, not more waiting." ]
+    },
+    typhoid: {
+      q:'Could this be typhoid?',
+      a:[ "Typhoid comes from Salmonella Typhi, usually through contaminated food or water.", "This tends to build gradually — a persistent fever that doesn't break easily is the hallmark." ],
+      guide:[ "Persistent fever, headache, weakness, and stomach pain with changed bowel habits are typical. Safe water, thorough handwashing, and food hygiene are the main prevention.", "It needs antibiotics chosen by a doctor, since resistance patterns vary — this isn't one to try to wait out at home." ],
+      precaution:[ "Severe abdominal pain, persistent vomiting, confusion, extreme weakness, or signs of serious dehydration need urgent medical attention.", "A fever that just won't break combined with worsening stomach pain is worth getting checked rather than assumed to be a normal bug." ]
+    },
+    cholera: {
+      q:'Could this be cholera?',
+      a:[ "Cholera comes from Vibrio cholerae, almost always through contaminated water or food.", "The hallmark is how sudden and severe the fluid loss is — this moves fast." ],
+      guide:[ "Sudden, severe watery diarrhoea and vomiting cause rapid dehydration — oral rehydration solution (ORS) is essential, started as early as possible.", "Replace fluids and electrolytes continuously with ORS; severe cases need IV fluids and sometimes antibiotics from a doctor." ],
+      precaution:[ "Severe dehydration, fainting, very little urination, extreme weakness, or inability to drink anything requires immediate medical care — cholera can become dangerous within hours.", "Don't wait to see if it improves — cholera dehydrates people fast enough that early ORS and, if needed, a hospital visit matter a lot." ]
+    },
+    tuberculosis: {
+      q:'Could this be TB?',
+      a:[ "TB comes from Mycobacterium tuberculosis and usually settles in the lungs.", "Active pulmonary TB can spread through the air when someone coughs, speaks, or sneezes." ],
+      guide:[ "A persistent cough, fever, night sweats, tiredness, and unexplained weight loss over weeks are the pattern to watch for. Good ventilation and early diagnosis help limit spread.", "Treatment is a combination of specific antibiotics taken for several months under medical supervision — it isn't something to self-treat or stop early." ],
+      precaution:[ "Severe breathing difficulty, coughing up a significant amount of blood, confusion, or loss of consciousness needs urgent medical attention.", "A cough that's persisted for weeks, especially with weight loss and night sweats, is worth getting checked rather than assumed to be something minor." ]
+    },
+    pneumonia: {
+      q:'Could this be pneumonia?',
+      a:[ "Pneumonia is a lung infection or inflammation, from bacteria, viruses, or other causes.", "This tends to feel like a cold or flu that's gone further into the chest." ],
+      guide:[ "Cough, fever, chills, chest discomfort, tiredness, and difficulty breathing are common. Vaccination and avoiding tobacco smoke lower the risk.", "Treatment depends on the cause — bacterial pneumonia usually needs antibiotics, while some viral cases need supportive care or specific antivirals." ],
+      precaution:[ "Severe difficulty breathing, blue or grey lips or skin, confusion, severe chest pain, or loss of consciousness needs immediate medical attention.", "Breathing trouble that's getting worse rather than better, especially with confusion, is not one to wait out at home." ]
+    },
+    uti: {
+      q:'I think I have a UTI',
+      a:[ "UTIs happen when bacteria get into and multiply in the urinary tract.", "This is uncomfortable but usually straightforward to treat once caught." ],
+      guide:[ "Burning or pain when urinating, needing to go often or urgently, cloudy or strong-smelling urine, and lower belly discomfort are the usual signs. Drinking enough fluids and good hygiene help both prevention and recovery.", "It typically needs antibiotics from a doctor — plenty of water in the meantime can ease discomfort while waiting to be seen." ],
+      precaution:[ "Fever with chills, severe back or side pain, vomiting, confusion, or rapidly worsening symptoms can mean the infection has spread further and needs prompt medical attention.", "Don't sit on a UTI that's come with back pain and fever — that combination suggests it may have reached the kidneys and needs urgent care." ]
+    },
+    ibuprofen: {
+      q:'What dose of ibuprofen should I give?',
+      a:[ "Ibuprofen (like Brufen) works for pain and fever, but the right dose depends heavily on whether it's for a child or an adult.", "This one needs weight-based dosing for kids — age alone isn't accurate enough." ],
+      guide:[ "For children: 5 to 10 mg per kilogram of body weight, every 6 to 8 hours as needed — a 10kg child typically gets about 2.5ml of Brufen 100mg/5ml syrup, three to four times a day. For teens and adults: 200 to 400mg every 4 to 6 hours, with a maximum of 1200mg in 24 hours unless a doctor says otherwise.", "Always weigh the child rather than estimate — that's what the dose is actually based on, not their age or how big they look." ],
+      precaution:[ "Give it with food or milk to protect the stomach. Never give ibuprofen to a child under 3 months old, or to anyone who's currently dehydrated, and never split or use adult tablets to guess a child's dose.", "This is general guidance, not a prescription — for an actual illness needing treatment, a doctor should confirm the right medicine and dose for that specific case." ]
+    },
+    paracetamol: {
+      q:'What dose of Panadol should I give?',
+      a:[ "Paracetamol (Panadol) is one of the most common fever and pain relievers, but the gap between a safe dose and an unsafe one is smaller than most people think.", "This is the medicine most often taken accidentally in excess, usually by combining it with something else that already contains it." ],
+      guide:[ "For children: 10 to 15 mg per kilogram of body weight, every 4 to 6 hours — never more than 4 doses in 24 hours. For teens and adults: 500 to 1000mg every 4 to 6 hours, with an absolute maximum of 4000mg (4g) in a single day.", "Weigh the child for an accurate dose rather than guessing from age, and always check the clock between doses rather than by feel." ],
+      precaution:[ "Going over the daily maximum is a real danger — it can cause serious liver damage, sometimes without obvious symptoms until it's advanced. Always check that another medicine (like a cold and flu tablet) doesn't already contain paracetamol before adding more.", "This is general guidance only — for treating an actual underlying illness, a doctor's advice on the right medicine matters more than the dose alone." ]
+    },
+    coldrex: {
+      q:'Can I take Coldrex?',
+      a:[ "Coldrex is a combination cold and flu remedy — it usually contains paracetamol, a decongestant, and sometimes caffeine, not just one ingredient.", "Because it's a combination product, dosing it safely means knowing everything already inside it." ],
+      guide:[ "For adults and teens 12 and over: typically 1 to 2 tablets, up to 4 times a day. It isn't intended for children under 12.", "Check the label each time — combination cold formulas change their exact ingredients by region and brand." ],
+      precaution:[ "Coldrex almost always already contains paracetamol — taking Panadol on top of it risks a paracetamol overdose and genuine liver damage. Never combine Coldrex with Panadol, or with ibuprofen, without checking with a pharmacist or doctor first.", "This applies just as much to any other cold and flu combination product — always check the active ingredients before stacking medicines." ]
+    }
+  };
+
+  var seasonalGuide = {
+    summer: {
+      label: 'Summer cold',
+      a: "A summer cold is usually a rhinovirus — runny nose, sneezing, sore throat, but rarely much fever.",
+      guide: "Cool fluids, rest, and something for a sore throat if needed. Air conditioning can dry things out, so keep water close by.",
+      precaution: "If it comes with a high fever or lasts more than ten days, it's worth getting checked rather than assuming it's 'just summer allergies'."
+    },
+    winter: {
+      label: 'Winter cold / flu',
+      a: "Winter-type colds lean more toward flu — body aches, chills, fatigue, and a fever that actually shows up.",
+      guide: "Warm fluids, rest, and a fever reducer if the aches and temperature are uncomfortable. This one tends to hit harder and last a bit longer.",
+      precaution: "Trouble breathing, chest pain, or a fever that spikes back up after seeming to improve — that pattern is worth a same-day doctor's visit, especially for anyone older or with a heart or lung condition."
+    }
+  };
+
+  var topicMeta = {
+    diabetes:{icon:'💉',cat:'illness'}, asthma:{icon:'🫁',cat:'illness'}, epilepsy:{icon:'🧠',cat:'illness'},
+    heart:{icon:'❤️',cat:'illness'}, allergy:{icon:'🤧',cat:'illness'}, bleeding:{icon:'🩸',cat:'pain'},
+    choking:{icon:'🫁',cat:'illness'}, anxiety:{icon:'😌',cat:'mental'}, fever:{icon:'🌡️',cat:'illness'},
+    headache:{icon:'🤕',cat:'pain'}, stomach:{icon:'🤢',cat:'illness'}, joint:{icon:'🦴',cat:'pain'},
+    arm:{icon:'💪',cat:'pain'}, back:{icon:'🦴',cat:'pain'}, muscle:{icon:'💪',cat:'pain'}, neck:{icon:'🦴',cat:'pain'},
+    leg:{icon:'🦵',cat:'pain'}, tooth:{icon:'🦷',cat:'pain'}, ear:{icon:'👂',cat:'pain'},
+    depression:{icon:'🌧️',cat:'mental'}, anxietydisorder:{icon:'😟',cat:'mental'}, panicdisorder:{icon:'💓',cat:'mental'},
+    ocd:{icon:'🔁',cat:'mental'}, ptsd:{icon:'🕊️',cat:'mental'}, socialanxiety:{icon:'😳',cat:'mental'},
+    flu:{icon:'🤒',cat:'virus'}, coldvirus:{icon:'🤧',cat:'virus'}, malaria:{icon:'🦟',cat:'virus'},
+    typhoid:{icon:'🦠',cat:'virus'}, cholera:{icon:'💧',cat:'virus'}, tuberculosis:{icon:'🫁',cat:'virus'},
+    pneumonia:{icon:'🫁',cat:'virus'}, uti:{icon:'🚻',cat:'illness'}, ibuprofen:{icon:'💊',cat:'medicine'},
+    paracetamol:{icon:'💊',cat:'medicine'}, coldrex:{icon:'💊',cat:'medicine'}, cough:{icon:'🤧',cat:'virus'}
+  };
+
+  var quotePools = {
+    illness: [
+      "\u201cHealth is a state of complete harmony of the body, mind and spirit.\u201d — B.K.S. Iyengar",
+      "\u201cThe greatest wealth is health.\u201d — Virgil",
+      "\u201cTake care of your body, it's the only place you have to live.\u201d — Jim Rohn",
+      "\u201cAlmost everything will work again if you unplug it for a few minutes, including you.\u201d — Anne Lamott"
+    ],
+    pain: [
+      "\u201cThe pain you feel today is the strength you feel tomorrow.\u201d — unknown",
+      "\u201cYou don't have to control your thoughts, you just have to stop letting them control you.\u201d — Dan Millman",
+      "\u201cRest when you're weary. Refresh and renew yourself.\u201d — Ralph Marston",
+      "\u201cWhat lies behind us and what lies before us are tiny matters compared to what lies within us.\u201d — Ralph Waldo Emerson"
+    ],
+    mental: [
+      "\u201cYou are not your illness. You have an individual story to tell.\u201d — Julian Seifter",
+      "\u201cThis too shall pass.\u201d — Persian proverb",
+      "\u201cOut of difficulties grow miracles.\u201d — Jean de La Bruyère",
+      "\u201cThe wound is the place where the Light enters you.\u201d — Rumi",
+      "\u201cYou don't have to see the whole staircase, just take the first step.\u201d — Martin Luther King Jr."
+    ],
+    virus: [
+      "\u201cIn the midst of winter, I found there was, within me, an invincible summer.\u201d — Albert Camus",
+      "\u201cThis too will pass — rest is not a luxury, it's part of the cure.\u201d — unknown",
+      "\u201cThe body heals with play, the mind heals with laughter, the spirit heals with joy.\u201d — Proverb"
+    ],
+    medicine: [
+      "\u201cThe art of medicine consists of amusing the patient while nature cures the disease.\u201d — Voltaire",
+      "\u201cWherever the art of medicine is loved, there is also a love of humanity.\u201d — Hippocrates",
+      "\u201cAn ounce of prevention is worth a pound of cure.\u201d — Benjamin Franklin"
+    ]
+  };
+
+  var checkinLines = [
+    "How are you feeling right now, physically and otherwise?",
+    "How are you holding up with all this?",
+    "How's your body feeling as we talk this through?",
+    "Is there anything about this that's worrying you more than the rest?",
+    "How are you doing with this right now?"
+  ];
+
+  function appendVisual(key){
+    var meta = topicMeta[key] || {icon:'🩺', cat:'illness'};
+    var log = document.getElementById('chatLog');
+    var div = document.createElement('div');
+    div.className = 'topic-visual ' + meta.cat;
+    div.textContent = meta.icon;
+    log.appendChild(div);
+  }
+
+  function buildReply(key, aText, guideText, precautionText){
+    var meta = topicMeta[key] || {icon:'🩺', cat:'illness'};
+    var quote = pick(quotePools[meta.cat] || quotePools.illness);
+    var checkin = pick(checkinLines);
+    return meta.icon + ' ' + aText + ' ' + guideText + ' ' + precautionText + ' \u201c' + quote + '\u201d ' + checkin;
+  }
+
+  var companionTalk = {
+    meditate: [
+      "Let's take a minute together. Close your eyes if you can, and just notice your breath moving in and out, without changing it yet.",
+      "Okay — settle into wherever you're sitting. Feel the points where your body touches the chair or the ground. Just that, for a moment.",
+      "Let's slow down together. Notice five things you can hear right now, one at a time, without judging any of them."
+    ],
+    lonely: [
+      "That's a heavy feeling to sit with. I'm here right now, and that counts for something, even if it's not everything you need.",
+      "Loneliness is real, not something to just push through. I'm glad you said it out loud instead of holding it alone.",
+      "I hear you. Would it help to talk about what's making today feel especially quiet, or would you rather I just stay with you for a bit?",
+      "You don't have to explain it or justify it. I'm right here, and I'm not going anywhere.",
+      "Some days are just quieter than others, and that's allowed to be hard. I'm glad you told me."
+    ],
+    chat: [
+      "Sure — how's today actually been, beyond the basics?",
+      "I'm happy to just talk. What's been on your mind lately, even the small stuff?",
+      "Go ahead — I'm listening, no agenda needed.",
+      "I'd like that. What's something good that happened this week, even a small thing?",
+      "Tell me whatever's on your mind — doesn't have to be important."
+    ],
+    greeting: [
+      "Hello! Good to hear from you — how are you doing today?",
+      "Hi there. How's your day treating you so far?",
+      "Hey! I'm glad you checked in — what's going on with you?"
+    ],
+    howareyou: [
+      "I'm doing well, thank you for asking — more importantly, how are you feeling today?",
+      "I'm here and steady, which is exactly where I want to be for you. How about you?",
+      "All good on my end. What about you — really, how are you?"
+    ],
+    fallback: [
+      "I'm here with you. I can walk you through a medical topic, help you breathe through something hard, or just talk — whatever's useful right now.",
+      "Tell me a bit more — I can help with a health question, calm things down, or just keep you company for a while.",
+      "I didn't quite catch a topic there, but I'm listening either way. What's going on?",
+      "However you want to use this, I'm here for it — health question, quiet moment, or just conversation."
+    ],
+    weather: [
+      "I can't check the actual weather from here, but I hope it's treating you kindly today.",
+      "Whatever it's doing outside, I hope you've got what you need to stay comfortable.",
+      "Rain or shine, I'm glad you're checking in either way."
+    ],
+    food: [
+      "Ooh, now I'm curious — what's on the menu today?",
+      "Food's one of life's simple joys. What are you thinking of eating?",
+      "I can't taste anything, sadly, but I love hearing about a good meal. What sounds good right now?"
+    ],
+    weekend: [
+      "Any plans, or is a slow one exactly what you need right now?",
+      "Weekends are good for either doing everything or doing absolutely nothing — which camp are you in?",
+      "I hope it's got at least one moment worth looking forward to."
+    ],
+    family: [
+      "Family stuff can be wonderful and complicated in the same breath. How's that going?",
+      "Tell me more, if you want to — I'm listening.",
+      "That's worth talking through, if you feel like it."
+    ],
+    pets: [
+      "Pets have a way of making everything feel a little lighter. Tell me about them?",
+      "I love hearing about animals — what kind, and what are they like?",
+      "There's nothing quite like a pet greeting you at the door. What's yours like?"
+    ],
+    jokes: [
+      "Why don't scientists trust atoms? Because they make up everything.",
+      "I told my computer I needed a break, and now it won't stop sending me vacation ads.",
+      "What do you call a bear with no teeth? A gummy bear.",
+      "I'm reading a book on anti-gravity. It's impossible to put down."
+    ],
+    gratitude: [
+      "That's a genuinely nice thing to notice. What's it been like having that around?",
+      "It's good that you're holding onto that — gratitude is worth pausing on.",
+      "That sounds like a good thing to sit with for a minute."
+    ],
+    boredom: [
+      "Fair enough — want to talk about something random, hear a joke, or just chat about your day?",
+      "Boredom's underrated, honestly, but I'm happy to fill some of it. What are you in the mood for?",
+      "We could talk about literally anything. What's been on your mind lately, even something small?"
+    ],
+    sleep: [
+      "Rest matters more than people give it credit for. How's your sleep been lately?",
+      "If you're winding down, I hope it's an easy night.",
+      "Tired is worth listening to — don't push through it if you don't have to."
+    ],
+    motivation: [
+      "You don't need to have it all figured out today — just the next small step is enough.",
+      "Whatever you're working toward, showing up today already counts for something.",
+      "Small, steady effort beats waiting for the perfect moment almost every time."
+    ],
+    goodnews: [
+      "That's genuinely great to hear — tell me more!",
+      "I love that. What made it happen?",
+      "That's worth celebrating, even quietly."
+    ],
+    badday: [
+      "That sounds rough. I'm sorry today's been hard.",
+      "You don't have to explain it all — I'm just glad you said something instead of carrying it alone.",
+      "Some days are just heavier than others. Want to talk through it, or would distraction help more right now?"
+    ],
+    thanks: [
+      "Anytime, genuinely. That's what I'm here for.",
+      "You're welcome — glad I could help.",
+      "Of course. Come back whenever you need to."
+    ],
+    goodbye: [
+      "Take care of yourself — I'll be right here whenever you need me.",
+      "Goodbye for now. Be well.",
+      "See you next time — take it easy."
+    ],
+    compliment: [
+      "That's kind of you to say, thank you.",
+      "That means something, genuinely — thank you.",
+      "I appreciate that, truly."
+    ]
+  };
+
+  function appendChoiceChips(options){
+    var log = document.getElementById('chatLog');
+    var row = document.createElement('div');
+    row.className = 'inline-chips';
+    options.forEach(function(opt){
+      var b = document.createElement('span');
+      b.className = 'inline-chip';
+      b.textContent = opt.label;
+      b.onclick = function(){ row.remove(); opt.fn(); };
+      row.appendChild(b);
+    });
+    log.appendChild(row);
+    document.querySelector('#view-companion').scrollTop = 999999;
+  }
+
+  function giveFeverAnswer(cause){
+    var lines = {
+      coldflu: { label:"Along with cold or flu symptoms", a:"That points to a viral fever alongside cold or flu — very common and usually not dangerous on its own.", medicine:"Paracetamol (Panadol) is the usual first choice: 10 to 15 mg per kg for a child every 4 to 6 hours, or 500 to 1000mg for a teen or adult, up to 4 times a day. Rest and fluids do the rest." },
+      heat: { label:"After being out in heat or sun", a:"A fever right after heat or sun exposure might actually be heat exhaustion rather than an infection — worth telling apart.", medicine:"Cooling down and rehydrating matters more than fever medicine here — shade, a fan, cool (not ice-cold) water on the skin, and fluids with electrolytes. Hold off on more medicine until they've cooled down." },
+      stomach: { label:"Along with an upset stomach", a:"Fever with stomach upset often points to a stomach bug or mild food-related illness.", medicine:"Small sips of fluids first. Paracetamol is fine if the fever itself is uncomfortable, but skip ibuprofen on an unsettled stomach — it can irritate it further." },
+      unsure: { label:"Not sure what caused it", a:"That's alright — let's go with general fever care.", medicine:"Paracetamol (Panadol) is the standard first choice: weight-based for children, or 500 to 1000mg for a teen or adult, up to 4 times a day." }
+    };
+    var item = lines[cause];
+    appendMsg('user', item.label);
+    appendVisual('fever');
+    var reply = buildReply('fever', item.a, item.medicine, pick(library.fever.precaution));
+    appendMsg('bot', reply);
+    if(voiceOn()) speak(reply);
+  }
+
+  function askFeverQuestion(){
+    appendMsg('user', library.fever.q);
+    appendMsg('bot', "🌡️ Before I suggest anything — what else are you noticing alongside the fever, and any idea what might have caused it?");
+    appendChoiceChips([
+      {label:'🤧 Cold/flu symptoms', fn:function(){ giveFeverAnswer('coldflu'); }},
+      {label:'☀️ Heat or sun exposure', fn:function(){ giveFeverAnswer('heat'); }},
+      {label:'🤢 Upset stomach too', fn:function(){ giveFeverAnswer('stomach'); }},
+      {label:"❓ Not sure", fn:function(){ giveFeverAnswer('unsure'); }}
+    ]);
+  }
+
+  function giveSeasonal(season){
+    var s = seasonalGuide[season];
+    appendMsg('user', s.label);
+    appendVisual('cough');
+    var reply = buildReply('cough', s.a, s.guide, s.precaution);
+    appendMsg('bot', reply);
+    if(voiceOn()) speak(reply);
+  }
+
+  function askTopic(key){
+    if(key === 'calm'){ appendMsg('user','Calm me down'); appendMsg('bot', pick(["Of course. Let's do a short breathing exercise together — I'll guide you.","Alright, let's slow things down. Follow along with me for a minute."])); setTimeout(openCalm, 400); return; }
+    if(key === 'meditate'){ appendMsg('user','Can we meditate for a bit?'); var m = pick(companionTalk.meditate); appendMsg('bot', m); if(voiceOn()) speak(m); return; }
+    if(key === 'lonely'){ appendMsg('user',"I'm feeling a bit lonely"); var l = pick(companionTalk.lonely); appendMsg('bot', l); if(voiceOn()) speak(l); return; }
+    if(key === 'chat'){ appendMsg('user','Can we just talk for a bit?'); var c = pick(companionTalk.chat); appendMsg('bot', c); if(voiceOn()) speak(c); return; }
+    if(key === 'cough'){
+      appendMsg('user', library.cough.q);
+      appendMsg('bot', "🤧 Is this feeling more like a summer cold — runny nose, sneezing, mild — or more of a winter-type cold or flu, with body aches, chills, and a real fever?");
+      appendChoiceChips([ {label:'☀️ Summer cold', fn:function(){ giveSeasonal('summer'); }}, {label:'❄️ Winter cold / flu', fn:function(){ giveSeasonal('winter'); }} ]);
+      return;
+    }
+    if(key === 'fever'){ askFeverQuestion(); return; }
+    var item = library[key];
+    if(!item) return;
+    appendMsg('user', item.q);
+    appendVisual(key);
+    var reply = buildReply(key, pick(item.a), pick(item.guide), pick(item.precaution));
+    appendMsg('bot', reply);
+    if(voiceOn()) speak(reply);
+  }
+
+  function sendChat(){
+    var input = document.getElementById('chatInput');
+    var text = input.value.trim();
+    if(!text) return;
+    appendMsg('user', text);
+    input.value='';
+    var lower = text.toLowerCase();
+
+    // 1. codewords always take priority, wherever they're typed
+    var cw = checkCodewordText(lower);
+    if(cw){ triggerCodeword(cw); return; }
+
+    // 2. greetings and small talk, checked before any medical guess
+    if(/^(hi|hello|hey|good morning|good evening|good afternoon)\b/.test(lower)){
+      var g = pick(companionTalk.greeting); appendMsg('bot', g); if(voiceOn()) speak(g); return;
+    }
+    if(lower.indexOf('how are you') !== -1){
+      var hw = pick(companionTalk.howareyou); appendMsg('bot', hw); if(voiceOn()) speak(hw); return;
+    }
+    if(lower.indexOf('lonely') !== -1 || lower.indexOf('no one to talk') !== -1 || lower.indexOf('by myself') !== -1){
+      var l = pick(companionTalk.lonely); appendMsg('bot', l); if(voiceOn()) speak(l); return;
+    }
+    if(lower.indexOf('meditat') !== -1 || lower.indexOf('relax') !== -1 || lower.indexOf('calm my mind') !== -1){
+      var m = pick(companionTalk.meditate); appendMsg('bot', m); if(voiceOn()) speak(m); return;
+    }
+    if(lower === 'talk' || lower.indexOf('just talk') !== -1 || lower.indexOf('chat with you') !== -1 || lower.indexOf('bored') !== -1){
+      if(lower.indexOf('bored') !== -1){ var bo = pick(companionTalk.boredom); appendMsg('bot', bo); if(voiceOn()) speak(bo); return; }
+      var c = pick(companionTalk.chat); appendMsg('bot', c); if(voiceOn()) speak(c); return;
+    }
+    if(lower.indexOf('weather') !== -1 || lower.indexOf('raining') !== -1 || lower.indexOf('sunny') !== -1 || lower.indexOf('hot outside') !== -1 || lower.indexOf('cold outside') !== -1){
+      var we = pick(companionTalk.weather); appendMsg('bot', we); if(voiceOn()) speak(we); return;
+    }
+    if(lower.indexOf('hungry') !== -1 || lower.indexOf('eat') !== -1 || lower.indexOf('food') !== -1 || lower.indexOf('dinner') !== -1 || lower.indexOf('lunch') !== -1 || lower.indexOf('breakfast') !== -1){
+      var fo = pick(companionTalk.food); appendMsg('bot', fo); if(voiceOn()) speak(fo); return;
+    }
+    if(lower.indexOf('weekend') !== -1 || lower.indexOf('holiday') !== -1 || lower.indexOf('day off') !== -1){
+      var wk = pick(companionTalk.weekend); appendMsg('bot', wk); if(voiceOn()) speak(wk); return;
+    }
+    if(lower.indexOf('my mom') !== -1 || lower.indexOf('my dad') !== -1 || lower.indexOf('my family') !== -1 || lower.indexOf('my daughter') !== -1 || lower.indexOf('my son') !== -1 || lower.indexOf('my brother') !== -1 || lower.indexOf('my sister') !== -1){
+      var fa = pick(companionTalk.family); appendMsg('bot', fa); if(voiceOn()) speak(fa); return;
+    }
+    if(lower.indexOf('my dog') !== -1 || lower.indexOf('my cat') !== -1 || lower.indexOf(' pet') !== -1 || lower.indexOf('my pet') !== -1){
+      var pe = pick(companionTalk.pets); appendMsg('bot', pe); if(voiceOn()) speak(pe); return;
+    }
+    if(lower.indexOf('joke') !== -1 || lower.indexOf('make me laugh') !== -1 || lower.indexOf('something funny') !== -1){
+      var jo = pick(companionTalk.jokes); appendMsg('bot', jo); if(voiceOn()) speak(jo); return;
+    }
+    if(lower.indexOf('grateful') !== -1 || lower.indexOf('thankful for') !== -1 || lower.indexOf('good thing that happened') !== -1){
+      var gr = pick(companionTalk.gratitude); appendMsg('bot', gr); if(voiceOn()) speak(gr); return;
+    }
+    if(lower.indexOf("can't sleep") !== -1 || lower.indexOf('cant sleep') !== -1 || lower.indexOf('insomnia') !== -1 || lower.indexOf('tired') !== -1 || lower.indexOf('sleepy') !== -1){
+      var sl = pick(companionTalk.sleep); appendMsg('bot', sl); if(voiceOn()) speak(sl); return;
+    }
+    if(lower.indexOf('motivat') !== -1 || lower.indexOf('give up') !== -1 || lower.indexOf('no energy') !== -1 || lower.indexOf('procrastinat') !== -1){
+      var mo = pick(companionTalk.motivation); appendMsg('bot', mo); if(voiceOn()) speak(mo); return;
+    }
+    if(lower.indexOf('good news') !== -1 || lower.indexOf('great news') !== -1 || lower.indexOf('exciting') !== -1 || lower.indexOf('happy news') !== -1){
+      var gn = pick(companionTalk.goodnews); appendMsg('bot', gn); if(voiceOn()) speak(gn); return;
+    }
+    if(lower.indexOf('bad day') !== -1 || lower.indexOf('rough day') !== -1 || lower.indexOf('terrible day') !== -1 || lower.indexOf('awful day') !== -1){
+      var bd = pick(companionTalk.badday); appendMsg('bot', bd); if(voiceOn()) speak(bd); return;
+    }
+    if(lower.indexOf('thank you') !== -1 || lower === 'thanks' || lower.indexOf('thanks') !== -1){
+      var th = pick(companionTalk.thanks); appendMsg('bot', th); if(voiceOn()) speak(th); return;
+    }
+    if(lower.indexOf('bye') !== -1 || lower.indexOf('goodnight') !== -1 || lower.indexOf('good night') !== -1 || lower.indexOf('see you') !== -1 || lower.indexOf('gotta go') !== -1){
+      var gb = pick(companionTalk.goodbye); appendMsg('bot', gb); if(voiceOn()) speak(gb); return;
+    }
+    if(lower.indexOf('you are great') !== -1 || lower.indexOf("you're great") !== -1 || lower.indexOf('you are helpful') !== -1 || lower.indexOf("you're helpful") !== -1 || lower.indexOf('i like you') !== -1 || lower.indexOf('good job') !== -1){
+      var cp = pick(companionTalk.compliment); appendMsg('bot', cp); if(voiceOn()) speak(cp); return;
+    }
+
+    // 3. specific medical keywords — only clear, unambiguous matches
+    var matched = null;
+    if(lower.indexOf('cough') !== -1 || lower.indexOf('cold') !== -1){ askTopic('cough'); return; }
+    else if(lower.indexOf('fever') !== -1 || lower.indexOf('temperature') !== -1 || lower.indexOf('running hot') !== -1 || lower.indexOf('burning up') !== -1 || lower.indexOf('chills') !== -1){ askFeverQuestion(); return; }
+    else if(lower.indexOf('headache') !== -1 || lower.indexOf('migraine') !== -1 || lower.indexOf('head hurts') !== -1 || lower.indexOf('head is pounding') !== -1) matched='headache';
+    else if(lower.indexOf('stomach') !== -1 || lower.indexOf('nausea') !== -1 || lower.indexOf('vomit') !== -1 || lower.indexOf('tummy') !== -1 || lower.indexOf('belly') !== -1 || lower.indexOf('throwing up') !== -1 || lower.indexOf('food poisoning') !== -1) matched='stomach';
+    else if(lower.indexOf('joint') !== -1 || lower.indexOf('arthrit') !== -1) matched='joint';
+    else if(lower.indexOf('arm') !== -1) matched='arm';
+    else if(lower.indexOf('back pain') !== -1 || lower.indexOf('backache') !== -1 || (lower.indexOf('back') !== -1 && lower.indexOf('hurt') !== -1)) matched='back';
+    else if(lower.indexOf('muscle') !== -1 || lower.indexOf('cramp') !== -1) matched='muscle';
+    else if(lower.indexOf('neck') !== -1) matched='neck';
+    else if(lower.indexOf('leg') !== -1) matched='leg';
+    else if(lower.indexOf('tooth') !== -1 || lower.indexOf('teeth') !== -1) matched='tooth';
+    else if(lower.indexOf('ear') !== -1) matched='ear';
+    else if(lower.indexOf('depress') !== -1) matched='depression';
+    else if(lower.indexOf('ocd') !== -1 || lower.indexOf('obsessive') !== -1 || lower.indexOf('compulsi') !== -1) matched='ocd';
+    else if(lower.indexOf('ptsd') !== -1 || lower.indexOf('trauma') !== -1) matched='ptsd';
+    else if(lower.indexOf('social anxiety') !== -1 || lower.indexOf('shy') !== -1) matched='socialanxiety';
+    else if(lower.indexOf('panic disorder') !== -1) matched='panicdisorder';
+    else if(lower.indexOf('anxiety disorder') !== -1 || lower.indexOf('generalized anxiety') !== -1) matched='anxietydisorder';
+    else if(lower.indexOf('flu') !== -1 || lower.indexOf('influenza') !== -1) matched='flu';
+    else if(lower.indexOf('malaria') !== -1) matched='malaria';
+    else if(lower.indexOf('typhoid') !== -1) matched='typhoid';
+    else if(lower.indexOf('cholera') !== -1) matched='cholera';
+    else if(lower.indexOf('tuberculosis') !== -1 || lower.indexOf(' tb') !== -1 || lower.indexOf('tb ') !== -1) matched='tuberculosis';
+    else if(lower.indexOf('pneumonia') !== -1) matched='pneumonia';
+    else if(lower.indexOf('uti') !== -1 || lower.indexOf('urinary') !== -1 || lower.indexOf('burning when') !== -1) matched='uti';
+    else if(lower.indexOf('ibuprofen') !== -1 || lower.indexOf('brufen') !== -1) matched='ibuprofen';
+    else if(lower.indexOf('panadol') !== -1 || lower.indexOf('paracetamol') !== -1 || lower.indexOf('acetaminophen') !== -1) matched='paracetamol';
+    else if(lower.indexOf('coldrex') !== -1) matched='coldrex';
+    else if(lower.indexOf('anxious') !== -1 || lower.indexOf('panic') !== -1 || lower.indexOf('scared') !== -1 || lower.indexOf('worried') !== -1 || lower.indexOf('freaking out') !== -1 || lower.indexOf('heart racing') !== -1) matched='anxiety';
+    else if(lower.indexOf('sugar') !== -1 || lower.indexOf('insulin') !== -1 || lower.indexOf('diabet') !== -1 || lower.indexOf('glucose') !== -1) matched='diabetes';
+    else if(lower.indexOf('asthma') !== -1 || lower.indexOf('inhaler') !== -1 || lower.indexOf('wheez') !== -1 || lower.indexOf('short of breath') !== -1 || lower.indexOf('cant breathe') !== -1 || lower.indexOf("can't breathe") !== -1) matched='asthma';
+    else if(lower.indexOf('seizure') !== -1 || lower.indexOf('epilep') !== -1) matched='epilepsy';
+    else if(lower.indexOf('chest pain') !== -1 || lower.indexOf('heart') !== -1 || lower.indexOf('chest tight') !== -1 || lower.indexOf('chest hurts') !== -1) matched='heart';
+    else if(lower.indexOf('bleed') !== -1 || lower.indexOf('cut myself') !== -1 || lower.indexOf('wound') !== -1 || lower.indexOf('bruise') !== -1 || lower.indexOf('gash') !== -1) matched='bleeding';
+    else if(lower.indexOf('chok') !== -1 || lower.indexOf('swallowed wrong') !== -1) matched='choking';
+    else if(lower.indexOf('allerg') !== -1 || lower.indexOf('hives') !== -1 || lower.indexOf('swelling') !== -1 || lower.indexOf('anaphyla') !== -1) matched='allergy';
+
+    if(matched && library[matched]){
+      var item = library[matched];
+      appendVisual(matched);
+      var reply = buildReply(matched, pick(item.a), pick(item.guide), pick(item.precaution));
+      appendMsg('bot', reply);
+      if(voiceOn()) speak(reply);
+    } else {
+      var fb = pick(companionTalk.fallback);
+      appendMsg('bot', fb);
+      if(voiceOn()) speak(fb);
+    }
+  }
+  function appendMsg(who, text){
+    var log = document.getElementById('chatLog');
+    var div = document.createElement('div');
+    div.className = 'msg ' + who;
+    div.textContent = text;
+    log.appendChild(div);
+    document.querySelector('#view-companion').scrollTop = 999999;
+  }
+
+  /* ---------------- voice out ---------------- */
+  var voiceUnlocked = false;
+  function unlockVoiceOnce(){
+    if(voiceUnlocked) return;
+    voiceUnlocked = true;
+    try{
+      if('speechSynthesis' in window){
+        var u = new SpeechSynthesisUtterance(' ');
+        u.volume = 0;
+        window.speechSynthesis.speak(u);
+      }
+    }catch(e){}
+  }
+  document.addEventListener('click', unlockVoiceOnce, {once:true});
+  document.addEventListener('touchstart', unlockVoiceOnce, {once:true});
+
+  function voiceOn(){ return document.getElementById('voiceSwitch').classList.contains('on'); }
+  function conversationOn(){ var el = document.getElementById('conversationSwitch'); return el && el.classList.contains('on'); }
+  function speak(text){
+    try{
+      if(!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.98;
+      if(conversationOn()){
+        u.onend = function(){ setTimeout(startListening, 500); };
+      }
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  /* ---------------- voice in ---------------- */
+  function startListening(){
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!SR){ showToast("Voice input isn't supported in this preview browser — typing works fully."); return; }
+    try{
+      var rec = new SR();
+      rec.lang = 'en-US';
+      rec.onresult = function(e){ document.getElementById('chatInput').value = e.results[0][0].transcript; sendChat(); };
+      rec.onerror = function(){ showToast("Couldn't hear that — try typing instead."); };
+      rec.start();
+      showToast('Listening…', 1500);
+    }catch(e){ showToast("Voice input isn't available in this preview."); }
+  }
+
+  /* ---------------- theme ---------------- */
+  function toggleTheme(){
+    var r = document.documentElement;
+    var cur = r.getAttribute('data-theme');
+    if(cur === 'light'){ r.setAttribute('data-theme','dark'); } else { r.setAttribute('data-theme','light'); }
+  }
+</script>
+
+</body>
+</html>
